@@ -121,7 +121,26 @@
 
 2. 匿名命名空间和静态变量
 
+   在.cc文件中定义一个**不需要被外部引用**的变量，可将他们放在匿名命名空间或声明为`static`
+
+   使其拥有内部链接性，在其他文件无法访问他们，甚至命名一样也不行（比如前置声明？ <font color=red>**WTF**</font>)
+
+   ```c++
+   // .cpp file
+   namespace {
+   ...
+   }	// namespace 
+   ```
+
+   在.h文件中就不要这么做了
+
+   在.cpp匿名命名空间中的变量可以该文件中访问，而具名命名空间则不可以
+
 3. 非成员函数、静态成员函数和全局函数
+
+   > Prefer placing nonmember functions in a namespace; use completely global functions rarely. Do not use a class simply to group static functions. Static methods of a class should generally be closely related to instances of the class or the class's static data.
+
+   使用静态成员函数或命名空间内的非成员函数, 尽量不要用裸的全局函数. 将一系列函数直接置于命名空间中，不要用类的静态方法模拟出命名空间的效果，类的静态方法应当和类的实例或静态数据紧密相关. <font color= red>**WTF**</font>
 
 4. 局部变量
 
