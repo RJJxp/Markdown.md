@@ -136,12 +136,92 @@
 
    在.cpp匿名命名空间中的变量可以该文件中访问，而具名命名空间则不可以
 
+   匿名命名空间可避免命名冲突, 限定作用域, 避免直接使用 `using` 关键字污染命名空间
+
 3. 非成员函数、静态成员函数和全局函数
 
    > Prefer placing nonmember functions in a namespace; use completely global functions rarely. Do not use a class simply to group static functions. Static methods of a class should generally be closely related to instances of the class or the class's static data.
 
    使用静态成员函数或命名空间内的非成员函数, 尽量不要用裸的全局函数. 将一系列函数直接置于命名空间中，不要用类的静态方法模拟出命名空间的效果，类的静态方法应当和类的实例或静态数据紧密相关. <font color= red>**WTF**</font>
 
+   非成员函数不应依赖于外部变量, 应尽量置于某个命名空间内. 相比单纯为了封装若干不共享任何静态数据的静态成员函数而创建类, 不如使用命名空间
+
+   对于头文件`myproject/rjp.h`应当使用
+
+   ```c++
+   namespace myproject{
+   namespace rjp{
+   void func1();
+   void func2();
+   }	// namespace rjp
+   }	// namespace myproject
+   ```
+
+   而非
+
+   ```c++
+   namespace myproject{
+   class rjp{
+       public:
+       static void func1();
+       static void func2();
+   };
+   }	// namespace myproject
+   ```
+
 4. 局部变量
 
-5. 静态和全局变量
+   - C++可以再任何位置声明变量，在尽可能小的作用域里面声明变量，离第一次使用越近越好
+
+     使用初始化的方式替代声明再赋值
+
+     ```c++
+     int i;
+     i = f();	// 不建议：初始化和声明分离
+     
+     int j = g();	// 好：初始化的时候声明
+     
+     vector<int> v1;	// 其实用花括号初始化更好
+     v1.push_back(1);	
+     v1.push_back(2);
+     
+     vector<int> v2 = {1,2};	// 好：一开始就初始化
+     ```
+
+   - 属于`if`，`while`和`for`语句的变量应当在这些语句中声明，可以将变量的作用域限制在这些语句中
+
+     ```c++
+     while (const char* p = strchr(str, '/')) str = p + 1;
+     ```
+
+     但如果变量是一个对象，那么每次进入作用域要调用构造函数，退出要调用析构函数，会降低代码效率
+
+     ```c++
+     // 低效的实现
+     for(int i=0;i<1000000;i++){
+         rjp f;
+         f.doSth(i);
+     }
+     
+     // 高效的实现
+     rjp f;
+     for(int i=0;i<1000000;i++){
+         f.doSth(i);
+     }
+     ```
+
+5. 静态和全局变量 <font color=red>**WTF**</font>
+
+6. 译者笔记
+
+   - YuleFox 
+     - 多线程中的全局变量 (含静态成员变量) 不要使用 `class` 类型 (含 STL 容器), 避免不明确行为导致的 bug.
+     - 嵌套类符合局部使用原则, 只是不能在其他头文件中前置声明, 尽量不要 `public`;
+     - 作用域的使用, 除了考虑名称污染, 可读性之外, 主要是为降低耦合, 提高编译/执行效率.
+   - acgtyrant
+     - 匿名命名空间说白了就是文件作用域
+
+
+
+## 类
+
