@@ -292,10 +292,84 @@
 
 3. 引用参数
 
-   所有按引用传递的参数必须加上 `const`
+   - 所有按引用传递的参数必须加上 `const`，引用参数对于拷贝构造函数这样的应用也是必需的，同时也更明确地不接受空指针
+
+   - 唯一缺点就是容易引起误解，被当成指针
+
+   - Google的硬性规定， 输入参数是值参或 `const` 引用, 输出参数为指针. 输入参数可以是 `const` 指针, 但决不能是非 `const` 的引用参数, 除非特殊要求
+
+   ```c++
+     void func(const string &in,string *out);
+   ```
+
+   - 对于`const T*`和`const T&`，前者有时比后者更加明智
+
+     可能会传递空指针，函数要把指针或对地址的引用赋值给形参 <font color=red>**WTF**</font>
+
+   总而言之，大多数行参是`const T&`，若用`const T*`则需要特殊说明，以方便读者理解
 
 4. 函数重载
 
+   函数重载一定要让读者一看调用点就知道你重载的到底是哪一种
+
+   构造函数也是这样
+
+   ```c++
+   class rjpClass{
+       public:
+       void work(const string &text);
+       void work(const char *text, int textlen);
+   };
+   ```
+
+   - 可以在重载函数里加上参数信息，比如`appendString()`和`appendInt()`，而不是一口气重载很多（那这还叫重载吗？ <font color=red> **WTF**</font>）
+
+   - 如果重载的目的是为了支持不同数量的同一类型参数，可以优先考虑使用`std::vector`，方便读者使用列表初始化指定参数
+
 5. 缺省参数
 
+   只允许在非虚函数中使用缺性参数，而且缺省参数值保持唯一，不能这么写：
+
+   ```c++
+   void if(int n = counter++);
+   ```
+
+   之中关于缺省函数缺点某些的解释是看不懂的 <font color=red>**WTF**</font>
+
 6. 函数返回类型后置语法
+
+   ```c++
+   int foo(int x);	// 常规写法
+   auto foo(int x) -> int;	// 类型后置写法 c++11的新特性
+   ```
+
+   对于`int`这种简单的情况，两种写法没有太大区别
+
+   但是在某些复杂的情况中，写法不同会造成区别 （完全不懂Lambda表达式 <font color=red>**WTF**</font>）
+
+   ```c++
+   template <class T, class U> auto add(T t, U u) ->decltype(t+u);
+   ```
+   ```c++
+   template <class T, class U> decltype (declval<T&>() + declval<U&>()) add(U u, T t);
+   ```
+
+
+
+## 来自Google的奇技
+
+1. 所有权与智能指针
+
+   上过老张的课，对智能指针有一些初步的了解
+
+   > 所有权是一种登记／管理动态内存和其它资源的技术. 动态分配对象的所有主是一个对象或函数, 后者负责确保当前者无用时就自动销毁前者. 所有权有时可以共享, 此时就由最后一个所有主来负责销毁它. 甚至也可以不用共享, 在代码中直接把所有权传递给其它对象.
+
+   可以大致理解，把智能指针当成一个类，有一个`refcount`的变量来记录指针所指对象被link了几次，在删除释放空间，如果`refcount`大于1，那么不删除指针所指的数据，只是删除指向数据的指针。通过对`=`运算符的重载，来改变`refcount`的值
+
+   现在c++有现成的智能指针`std::unique_ptr`和 `std::shared_ptr`
+
+   后者的原理和老张讲的那一种智能指针相似
+
+   **文中所提到的所有权机制还是很有趣的**
+
+2. Cpplint
