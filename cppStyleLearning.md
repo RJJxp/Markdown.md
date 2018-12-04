@@ -17,6 +17,10 @@
 
 
 
+<font size=5>每一种方式都是各有利弊,没有最好, 只有更适合</font>
+
+
+
 ## 0.目录
 
 [TOC]
@@ -41,30 +45,30 @@
 
 可以降低编译依赖，但同时又会隐藏依赖项，极端情况会改变函数的执行
 
-1. 内联函数（inline）
+### 1.4 内联函数（inline）
 
-   10行之内，直接定义在头文件，加速代码的执行速度
+10行之内，直接定义在头文件，加速代码的执行速度
 
-   不要有循环、swtich、析构函数在里面
+不要有循环、swtich、析构函数在里面
 
-2. `#include`顺序
+### １.5 `#include`顺序
 
-   ```c++
-   // 总共分为五部分，如下所示
-   // 每一部分空行分割
-   #include "sensor/lidar.h"	// 对应的头文件
-   
-   #include <sys/types.h>	// C系统文件
-   #include <unistd.h>
-   
-   #include <vector>	// C++系统文件
-   #include <map>
-   
-   #include "control/direction.h"	// 其他目录下的库
-   #include "control/speed.h"
-   
-   #include "sensor/realsense.h"	// 本目录库
-   ```
+```c++
+// 总共分为五部分，如下所示
+// 每一部分空行分割
+#include "sensor/lidar.h"	// 对应的头文件
+
+#include <sys/types.h>	// C系统文件
+#include <unistd.h>
+
+#include <vector>	// C++系统文件
+#include <map>
+
+#include "control/direction.h"	// 其他目录下的库
+#include "control/speed.h"
+
+#include "sensor/realsense.h"	// 本目录库
+```
 
 
 ## 2.作用域
@@ -282,13 +286,29 @@ class rjp{
 
 ### 3.8 运算符重载
 
+C++ 允许用户通过使用 `operator` 关键字 对内建运算符进行重载定义，只要其中一个参数是用户定义的类型
+
+只有在意义明显, 不会出现奇怪的行为并且与对应的内建运算符的行为一致时才定义重载运算符，比如自己知道的拷贝构造函数`=`重载
+
+```c++
+class Ojb{};
+Obj a;
+Obj b = a;
+```
+
+只有在意义明显, 不会出现奇怪的行为并且与对应的内建运算符的行为一致时才定义重载运算符
+
+<font color =red>**WTF**</font>
+
 ### 3.9 存取控制
 
-将 *所有* 数据成员声明为 `private`，除非是 `static const` 类型成员 (遵循 [常量命名规则](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/naming/#constant-names))。处于技术上的原因，在使用 [Google Test](https://github.com/google/googletest) 时我们允许测试固件类中的数据成员为 `protected`
+将 ***所有*** 数据成员声明为 `private`，除非是 `static const` 类型成员 (遵循 [常量命名规则](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/naming/#constant-names))。处于技术上的原因，在使用 [Google Test](https://github.com/google/googletest) 时我们允许测试固件类中的数据成员为 `protected`
 
 ### 3.10 声明顺序
 
 顺序是public，protected，private
+
+在各个部分中, 建议将类似的声明放在一起, 并且建议以如下的顺序: 类型 (包括 `typedef`, `using` 和嵌套的结构体与类), 常量, 工厂函数, 构造函数, 赋值运算符, 析构函数, 其它函数, 数据成员.
 
 ### 3.11 译者笔记 YuleFox
 
@@ -318,7 +338,7 @@ class rjp{
 
 - 唯一缺点就是容易引起误解，被当成指针
 
-- Google的硬性规定， 输入参数是值参或 `const` 引用, 输出参数为指针. 输入参数可以是 `const` 指针, 但决不能是非 `const` 的引用参数, 除非特殊要求
+- **Google的硬性规定**， 输入参数是值参或 `const` 引用, 输出参数为指针. 输入参数可以是 `const` 指针, 但决不能是非 `const` 的引用参数, 除非特殊要求
 
 ```c++
   void func(const string &in,string *out);
@@ -405,4 +425,296 @@ template <class T, class U> decltype (declval<T&>() + declval<U&>()) add(U u, T 
 
 
 ## 6.其他C++特性
+
+### 6.1 引用参数
+
+请参考[4.3 引用参数](#4.3 引用参数)
+
+按照引用传递的参数必须加上`const`
+
+### 6.2 右值引用
+
+右值引用是一种只能绑定到临时对象的引用的一种, 其语法与传统的引用语法相似. 例如, `void f(string&& s)`; 声明了一个其参数是一个字符串的右值引用的函数<font color=red>**WTF**</font>
+
+只在定义**移动构造函数**与**移动赋值操作**时使用右值引用，不要使用 `std::forward` 功能函数，可能会使用`std::move`函数
+
+> 用于定义移动构造函数 (使用类的右值引用进行构造的函数) 使得移动一个值而非拷贝之成为可能. 例如, 如果 `v1` 是一个 `vector<string>`, 则 `auto v2(std::move(v1))` 将很可能不再进行大量的数据复制而只是简单地进行指针操作, 在某些情况下这将带来大幅度的性能提升
+
+特性比较新，并未被广泛理解
+
+### 6.3 函数重载
+
+请参考[4.4 函数重载](#4.4 函数重载)
+
+### 6.4 缺省参数
+
+尽可能改用函数重载不要用缺省函数参数，除少数情况外
+
+> 缺省参数会干扰函数指针，害得后者的函数签名（function signature）往往对不上所实际要调用的函数签名。即在一个现有函数添加缺省参数，就会改变它的类型，那么调用其地址的代码可能会出错，不过函数重载就没这问题了
+
+由于缺点并不是很严重，有些人依旧偏爱缺省参数胜于函数重载。所以除了以下情况，我们要求必须显式提供所有参数（acgtyrant 注：即不能再通过缺省参数来省略参数了）。
+
+- 位于 `.cc` 文件里的静态函数或匿名空间函数，毕竟都只能在局部文件里调用该函数了
+
+- 可以在构造函数里用缺省参数，毕竟不可能取得它们的地址<font color=red>**WTF**</font>
+
+- 可以用来模拟变长数组
+
+```c++
+// 通过空 AlphaNum 以支持四个形参
+string StrCat(const AlphaNum &a,
+              const AlphaNum &b = gEmptyAlphaNum,
+              const AlphaNum &c = gEmptyAlphaNum,
+              const AlphaNum &d = gEmptyAlphaNum);
+```
+
+### 6.5 变长数组和`alloca()`
+
+不允许用变长数组，用`std::vector`就好了
+
+### 6.6 友元
+
+> 通常友元应该定义在同一文件内, 避免代码读者跑到其它文件查找使用该私有成员的类. 经常用到友元的一个地方是将 `FooBuilder` 声明为 `Foo` 的友元, 以便 `FooBuilder` 正确构造 `Foo` 的内部状态
+
+builder设计模式？？？
+
+友元扩大但是并没有打破类的边界
+
+某些情况下，相对于把变量声明为`public`，使用友元是更好的选择
+
+### 6.7 异常
+
+坚决不使用异常
+
+### 6.8 运行时类型识别
+
+> RTTI 允许程序员在运行时识别 C++ 类对象的类型. 它通过使用 `typeid` 或者 `dynamic_cast` 完成.
+
+不允许使用RTTI
+
+在老张的课程上接触过这个东西，是在不同类之间的转换中见到过
+
+好像是分一个`static_cast`和`dynamic_cast`
+
+动态转换，把不同子类之间的不同数据转换为空，如果不识别的话。而静态会报错还是怎么样忘了
+
+可以在测试的时候用，如果你自己都不知道自己的类型是什么，只能说明你的类需要重新设计
+
+### 6.9 类型转换
+
+使用 C++ 的类型转换, 如 `static_cast<>()`. 不要使用 `int y = (int)x` 或 `int y = int(x)` 等转换方式
+
+C 语言的类型转换问题在于模棱两可的操作; 有时是在做强制转换 (如 `(int)3.5`), 有时是在做类型转换 (如 `(int)"hello"`)
+
+另外, C++ 的类型转换在查找时更醒目，但就是语法太恶心233333
+
+不要使用 C 风格类型转换. 而应该使用 C++ 风格.
+
+- 用 `static_cast` 替代 C 风格的值转换, 或某个类指针需要明确的向上转换为父类指针时.
+- 用 `const_cast` 去掉 `const` 限定符.
+- 用 `reinterpret_cast` 指针类型和整型或其它指针之间进行不安全的相互转换. 仅在你对所做一切了然于心时使用.
+
+### 6.10 流
+
+不要使用流, 除非是日志接口需要. 使用 `printf` 之类的代替
+
+流的最大优势是在于不需要关心打印的类型，但同时也很容易用错类型，编译器并不会报错（由于`<<`被重载）
+
+```c++
+cerr << "Error connecting to '" << foo->bar()->hostname.first
+     << ":" << foo->bar()->hostname.second << ": " << strerror(errno);
+
+fprintf(stderr, "Error connecting to '%s:%u: %s",
+        foo->bar()->hostname.first, foo->bar()->hostname.second,
+        strerror(errno));
+```
+
+### 6.11 前置自增和自减
+
+对简单数值 (非对象), 两种都无所谓. 对迭代器和模板类型, 使用前置自增 (自减).
+
+> 不考虑返回值的话, 前置自增 (`++i`) 通常要比后置自增 (`i++`) 效率更高. 因为后置自增 (或自减) 需要对表达式的值 `i` 进行一次拷贝. 如果 `i` 是迭代器或其他非数值类型, 拷贝的代价是比较大的. 既然两种自增方式实现的功能一样, 为什么不总是使用前置自增呢?
+
+### 6.12 `const`用法
+
+> 在声明的变量或参数前加上关键字 `const` 用于指明变量值不可被篡改 (如 `const int foo` ). 为类中的函数加上 `const` 限定符表明该函数不会修改类成员变量的状态 (如 `class Foo { int Bar(char c) const; };`).
+
+- 如果函数不会修改传你入的引用或指针类型参数, 该参数应声明为 `const`
+- 尽可能将函数声明为 `const`. 访问函数应该总是 `const`. 其他不会修改任何数据成员, 未调用非 `const` 函数, 不会返回数据成员非 `const` 指针或引用的函数也应该声明成 `const`
+- 如果数据成员在对象构造之后不再发生变化, 可将其定义为 `const`
+
+`const`的位置，不强制放在前面，但是要保持代码的一致性
+
+### 6.13 `constexpr`用法
+
+我怎么觉得不用管这个玩意
+
+### 6.14 整型
+
+> C++ 没有指定整型的大小. 通常人们假定`short`是16位, `int`是32位,`long`是32位,`long long`是64位
+
+<font color=red>**WTF假定是几个意思**</font>
+
+`<stdint.h>`定义了`int16_t`,`uint32_t`,`int64_t`
+
+> 不要使用 `uint32_t` 等无符号整型, 除非你是在表示一个位组而不是一个数值
+
+最近在解析超声波数据的时候用到了`uint32_t`的数据类型，大概意思是`uint32_t`一般用于位运算，也就是工业上和硬件解析时候要用，还在王卫安老师的课程中，使用过位运算
+
+### 6.15 64位下的可移植性
+
+暂时先不看，觉得还是用不到
+
+### 6.16 预处理宏
+
+<font color=red>**WTF**</font>
+
+### 6.17 `0`,`nullptr`和`NULL`
+
+整数用`0`，实数用`0.0`，字符串用`'\0'`
+
+对于指针，C++11 项目用 `nullptr`; C++03 项目则用 `NULL`
+
+### 6.18 `sizeof`
+
+尽可能使用`sizeof(varname)`代替`sizeof(type)`
+
+这样代码中变量类型变化会自动更新
+
+```c++
+rjpStruct data;
+memset(&data,0,sizeof(data));	// 正常
+memset(&data,0,sizeof(rjpStruct))	// Warning
+
+```
+
+### 6.19 `auto`
+
+定义：
+
+​	C++11 中，若变量被声明成 `auto`, 那它的类型就会被自动匹配成初始化表达式的类型。您可以用 `auto` 来复制初始化或绑定引用。
+
+```c++
+vector<string> v;
+...
+auto s1 = v[0];  // 创建一份 v[0] 的拷贝。
+const auto& s2 = v[0];  // s2 是 v[0] 的一个引用。
+```
+
+- 优化命名
+
+  ```c++
+  // C++类型有时又臭又长，有模板和命名空间的时候
+  sparse_hash_map<string, int>::iterator iter = m.find(val);
+  // 使用auto简化
+  auto iter = m.find(val);
+  ```
+
+  但有时候，声明离的太远，`auto`出来，别人不知道这是个什么玩意就很尴尬
+
+  所以还是要在合适的时机使用`auto`
+
+- 不要用来初始化
+
+  ```c++
+  auto x(3);	// x是int
+  auto y{3};	// y是std::initializer_list<int>
+  ```
+
+  此处涉及到C++常见的坑[why is vector<bool> is not a STL container?](https://stackoverflow.com/questions/17794569/why-is-vectorbool-not-a-stl-container/17794965#17794965)
+
+综上，`auto`尽量用在局部变量中，还有[之前](#4.6 函数返回类型后置语法)提到的`Lambda`表达式
+
+### 6.20 列表初始化
+
+全引用于[Google开源项目风格指南(中文版)](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/headers/#acgtyrant) 
+
+```c++
+// Vector 接收了一个初始化列表。
+vector<string> v{"foo", "bar"};
+
+// 不考虑细节上的微妙差别，大致上相同。
+// 您可以任选其一。
+vector<string> v = {"foo", "bar"};
+
+// 可以配合 new 一起用。
+auto p = new vector<string>{"foo", "bar"};
+
+// map 接收了一些 pair, 列表初始化大显神威。
+map<int, string> m = {{1, "one"}, {2, "2"}};
+
+// 初始化列表也可以用在返回类型上的隐式转换。
+vector<int> test_function() { return {1, 2, 3}; }
+
+// 初始化列表可迭代。
+for (int i : {-1, -2, -3}) {}
+
+// 在函数调用里用列表初始化。
+void TestFunction2(vector<int> v) {}
+TestFunction2({1, 2, 3});
+```
+
+这有点强，但总感觉很多初始化的方式并没怎么用到，大概就是因为太过于灵活了吧
+
+用户自定义类型也可以定义接收 `std::initializer_list<T>` 的构造函数和赋值运算符，以自动列表初始化：
+
+```c++
+class MyType {
+ public:
+  // std::initializer_list 专门接收 init 列表。
+  // 得以值传递。
+  MyType(std::initializer_list<int> init_list) {
+    for (int i : init_list) append(i);
+  }
+  MyType& operator=(std::initializer_list<int> init_list) {
+    clear();
+    for (int i : init_list) append(i);
+  }
+};
+MyType m{2, 3, 5, 7};
+```
+
+最后，列表初始化也适用于常规数据类型的构造，哪怕没有接收 `std::initializer_list<T>` 的构造函数。
+
+```c++
+double d{1.23};
+// MyOtherType 没有 std::initializer_list 构造函数，
+ // 直接上接收常规类型的构造函数。
+class MyOtherType {
+ public:
+  explicit MyOtherType(string);
+  MyOtherType(int, string);
+};
+MyOtherType m = {1, "b"};
+// 不过如果构造函数是显式的（explict），您就不能用 `= {}` 了。
+MyOtherType m{"b"};
+```
+
+注意不要用auto初始化
+
+### 6.21 `Lambda`表达式
+
+匿名函数，和回调机制有关
+
+### 6.22 模板编程
+
+不要使用复杂的模板
+
+### 6.23 `Boost`库
+
+只使用`Boost`被认可的库
+
+### 6.24 C++11
+
+新特性
+
+### 6.25 译者acgtyrant笔记
+
+- 把自带缺省参数的函数地址赋值给指针时，会丢失缺省参数信息
+- `friend` 实际上只对函数／类赋予了对其所在类的访问权限，并不是有效的声明语句。所以除了在头文件类内部写 friend 函数／类，还要在类作用域之外正式地声明一遍，最后在对应的 `.cc`文件加以定义
+- [滥用缺省参数会害得读者光只看调用代码的话，会误以为其函数接受的参数数量比实际上还要少。](http://www.zhihu.com/question/24439516/answer/27896004)
+- 对使用 C++ 异常处理应具有怎样的态度？](http://www.zhihu.com/question/22889420) 非常值得一读
+- 用断言`Assert()`代替无符号整型类型，深有启发，参考[6.14 整型](#6.14 整型)<font color=red>**WTF**</font>
+
+
 
