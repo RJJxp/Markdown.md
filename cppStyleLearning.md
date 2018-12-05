@@ -718,3 +718,96 @@ MyOtherType m{"b"};
 
 
 
+## 7.命名约定
+
+命名规则具有一定随意性，但相比按个人喜好命名，一致性更重要，所以无论你认为它们是否重要, 规则总归是规则
+
+### 7.1 通用命名规则
+
+- 函数、变量、文件的命名都要有描述性
+
+- 少用缩写，不要只有项目开发者才能理解的缩写，也不要砍掉几个字母来缩写单词
+
+- 一些特定的广为人知的缩写是允许的, 例如用 `i` 表示迭代变量和用 `T` 表示模板参数
+
+```c++
+int price_count_reader;    // 无缩写
+int num_errors;            // "num" 是一个常见的写法
+int num_dns_connections;   // 人人都知道 "DNS" 是什么
+```
+
+```c++
+int n;                     // 毫无意义.
+int nerr;                  // 含糊不清的缩写.
+int n_comp_conns;          // 含糊不清的缩写.
+int wgc_connections;       // 只有贵团队知道是什么意思.
+int pc_reader;             // "pc" 有太多可能的解释了.
+int cstmr_id;              // 删减了若干字母.
+```
+
+### 7.2 文件命名
+
+- 文件名要**全部小写**, 可以包含下划线 (`_`) 或连字符 (`-`), 依照项目的约定. 如果没有约定, 那么 “`_`” 更好
+
+  ```c++
+  my_useful_class.cc	// 还可以接受的命名方式
+  my-useful-class.cc
+  myusefulclass.cc
+  myusefulclass_test.cc // `_unittest` 和 `_regtest` 已弃用.
+  ```
+
+- 不要使用已经存在于 `/usr/include` 下的文件名 (Yang.Y 注: 即编译器搜索系统头文件的路径), 如 `db.h`.
+
+- 通常应尽量让文件名更加明确. `http_server_logs.h` 就比 `logs.h` 要好. 定义类时文件名一般成对出现, 如 `foo_bar.h` 和 `foo_bar.cc`, 对应于类 `FooBar`
+
+### 7.3 类型命名
+
+类型名称的**每个单词首字母均大写**, 不包含下划线: `MyExcitingClass`, `MyExcitingEnum`
+
+```c++
+// 类和结构体
+class UrlTable { ...
+class UrlTableTester { ...
+struct UrlTableProperties { ...
+
+// 类型定义
+typedef hash_map<UrlTableProperties *, string> PropertiesMap;
+
+// using 别名
+using PropertiesMap = hash_map<UrlTableProperties *, string>;
+
+// 枚举
+enum UrlTableErrors 
+```
+
+### 7.4 变量命名
+
+变量 (包括函数参数) 和数据成员名一律小写, 单词之间用下划线连接. 类的成员变量以下划线结尾, 但结构体的就不用, 如: `a_local_variable`, `a_struct_data_member`, `a_class_data_member_`
+
+```c++
+int a_local_variable;	// 普通变量
+
+struct RjpTestStruct{	// 结构体的命名，每个单词大写，没有下划线和连字符
+    string rjp_name;	// 结构体内部变量的命名
+    int rjp_int;
+}
+
+class RjpClass{	// 类的命名，每个单词大写，没有下划线和连字符
+    
+}
+```
+
+
+
+### 7.5 常量命名
+
+### 7.6 函数命名 
+
+### 7.7 命名空间命名 
+
+### 7.8 枚举命名 
+
+### 7.9 宏命名 
+
+### 7.10 命名规则的特例 
+
