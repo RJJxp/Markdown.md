@@ -787,27 +787,214 @@ enum UrlTableErrors
 ```c++
 int a_local_variable;	// 普通变量
 
-struct RjpTestStruct{	// 结构体的命名，每个单词大写，没有下划线和连字符
+struct RjpTestStruct{	// 结构体的命名，每个单词首字母大写，没有下划线和连字符
     string rjp_name;	// 结构体内部变量的命名
     int rjp_int;
 }
 
-class RjpClass{	// 类的命名，每个单词大写，没有下划线和连字符
-    
+class RjpClass{	// 类的命名，每个单词首字母大写，没有下划线和连字符
+	int rjp_int_;
+    string rjp_string_;	// 类变量的结尾要有下划线
 }
 ```
 
-
-
 ### 7.5 常量命名
+
+声明为 `constexpr` 或 `const` 的变量, 或在程序运行期间其值始终保持不变的, 命名时以 “k” 开头, 大小写混合. 例如:
+
+```c++
+const int kDaysInAWeek = 7;
+```
 
 ### 7.6 函数命名 
 
+- 驼峰命名：函数名的每个单词的首字母大写
+
+> 同样的命名规则同时适用于类作用域与命名空间作用域的常量, 因为它们是作为 API 的一部分暴露对外的, 因此应当让它们看起来像是一个函数, 因为在这时, 它们实际上是一个对象而非函数的这一事实对外不过是一个无关紧要的实现细节
+
+- 首字母缩写的单词, 更倾向于将它们视作一个单词进行首字母大写
+
 ### 7.7 命名空间命名 
+
+> 命名空间以小写字母命名. 最高级命名空间的名字取决于项目名称. 要注意避免嵌套命名空间的名字之间和常见的顶级命名空间的名字之间发生冲突.
 
 ### 7.8 枚举命名 
 
+枚举的命名应当和**常量**或**宏**一致: `kEnumName` 或是 `ENUM_NAME`
+
+```c++
+enum UrlTableErrors {
+    kOK = 0,
+    kErrorOutOfMemory,
+    kErrorMalformedInput,
+};
+enum AlternateUrlTableErrors {
+    OK = 0,
+    OUT_OF_MEMORY = 1,
+    MALFORMED_INPUT = 2,
+};
+```
+
 ### 7.9 宏命名 
 
+不看
+
 ### 7.10 命名规则的特例 
+
+？？？<font color=red>**WTF**</font>
+
+### 7.11 译者acgtyrant笔记
+
+感觉 Google 的命名约定很高明, 比如写了简单的类 QueryResult, 接着又可以直接定义一个变量 query_result, 区分度很好; 再次, 类内变量以下划线结尾, 那么就可以直接传入同名的形参, 比如 `TextQuery::TextQuery(std::string word) : word_(word) {}` , 其中 `word_` 自然是类内私有成员
+
+
+
+## 8.注释
+
+如何注释以及在哪儿注释. 当然也要记住: 注释固然很重要, 但最好的代码应当本身就是文档. 有意义的类型名和变量名, 要远胜过要用注释解释的含糊不清的名字.
+
+你写的注释是给代码读者看的, 也就是下一个需要理解你的代码的人. 所以慷慨些吧, 下一个读者可能就是你!
+
+### 8.1 注释风格
+
+使用`//`或是`/* */`
+
+注意风格的统一
+
+### 8.2 文件注释
+
+- 版权公告，类似license
+- 文件内容，一两行说明文件足矣，每个概念的详细文档应当放在每个概念中，而不是文件注释
+- 不要在`.h`和`.cc`文件中复制注释
+
+### 8.3 类注释
+
+每个类的定义都要附带一份注释, 描述类的功能和用法, 除非它的功能相当明显.
+
+```c++
+// Iterates over the contents of a GargantuanTable.
+// Example:
+//    GargantuanTableIterator* iter = table->NewIterator();
+//    for (iter->Seek("foo"); !iter->done(); iter->Next()) {
+//      process(iter->key(), iter->value());
+//    }
+//    delete iter;
+class GargantuanTableIterator {
+  ...
+};
+```
+
+- 正确使用类需要考虑的因素
+- 类的实例被多线程访问，特别注明
+- 小段代码演示也可以放在注释里面
+
+### 8.4 函数注释
+
+函数声明处的注释描述函数功能
+
+定义处的注释描述函数实现
+
+注释使用叙述式 (“Opens the file”) 而非指令式 (“Open the file”)
+
+1. **函数声明**
+   - 函数的输入输出.
+
+   - 对类成员函数而言: 函数调用期间对象是否需要保持引用参数, 是否会释放这些参数.
+   - 函数是否分配了必须由调用者释放的空间.
+   - 参数是否可以为空指针.
+   - 是否存在函数使用上的性能隐患.
+   - 如果函数是可重入的, 其同步前提是什么?
+
+    ```c++
+    // Returns an iterator for this table.  It is the client's
+    // responsibility to delete the iterator when it is done with it,
+    // and it must not use the iterator once the GargantuanTable object
+    // on which the iterator was created has been deleted.
+    //
+    // The iterator is initially positioned at the beginning of the table.
+    //
+    // This method is equivalent to:
+    //    Iterator* iter = table->NewIterator();
+    //    iter->Seek("");
+    //    return iter;
+    // If you are going to immediately seek to another place in the
+    // returned iterator, it will be faster to use NewIterator()
+    // and avoid the extra seek.
+    Iterator* GetIterator() const;
+    ```
+
+    - 注释函数重载时, 注释的重点应该是函数中被重载的部分, 而不是简单的重复被重载的函数的注释
+    - 构造函数对参数做了什么，析构函数清理了哪些参数
+
+2. **函数定义**
+
+   - 使用的编程技巧
+   - 实现的大致步骤
+   - 实现的理由
+
+   一定要注意在声明和定义处注释的区别，不要单纯的复制
+
+### 8.5 变量注释
+
+- 如果变量可以接受`NULL`或者`-1`这样的警戒值，需要注明
+- 所有全局变量也要注释说明含义及用途, 以及作为全局变量的原因
+
+### 8.6 实现注释
+
+对于代码中巧妙的, 晦涩的, 有趣的, 重要的地方加以注释
+
+- 代码前注释
+
+  `//<space><YOUR_EXPLANATIONS>`
+
+- 行注释
+
+  `<tab>//<space><YOUR_EXPLANATIONS>`
+
+- 函数参数注释
+
+  > 1. 如果参数是一个字面常量, 并且这一常量在多处函数调用中被使用, 用以推断它们一致, 你应当用一个常量名让这一约定变得更明显, 并且保证这一约定不会被打破.
+  >
+  > 2. 考虑更改函数的签名, 让某个 `bool` 类型的参数变为 `enum` 类型, 这样可以让这个参数的值表达其意义.
+  >
+  > 3. 如果某个函数有多个配置选项, 你可以考虑定义一个类或结构体以保存所有的选项, 并传入类或结构体的实例. 这样的方法有许多优点, 例如这样的选项可以在调用处用变量名引用, 这样就能清晰地表明其意义. 同时也减少了函数参数的数量, 使得函数调用更易读也易写. 除此之外, 以这样的方式, 如果你使用其他的选项, 就无需对调用点进行更改.
+  >
+  > 4. 具名变量代替大段而复杂的嵌套表达式.
+  >
+  > 5. 万不得已时, 才考虑在调用点用注释阐明参数的意义.
+
+不允许显而易见的注释
+
+自文档化
+
+### 8.7 标点、拼写和语法
+
+风格一致最重要
+
+### 8.8 TODO注释
+
+`TODO`：还要做，还等待改进
+
+对于临时的，短期的解决方案，已经可以运行，但是还不够好，可以写TODO注释
+
+```c++
+// TODO(kl@gmail.com): Use a "*" here for concatenation operator.
+// TODO(Zeke) change this to use relations.
+// TODO(bug 12345): remove the "Last visitors" feature
+```
+
+大写`TODO`在圆括号里面可以是你的名字，邮箱，bugID
+
+### 8.9 弃用注释
+
+不看<font color=red>**WTF**</font>
+
+### 8.10 译者YuleFox笔记
+
+1. 关于注释风格, 很多 C++ 的 coders 更喜欢行注释, C coders 或许对块注释依然情有独钟, 或者在文件头大段大段的注释时使用块注释;
+2. 文件注释可以炫耀你的成就, 也是**为了捅了篓子别人可以找你**;
+3. 注释要言简意赅, 不要拖沓冗余, 复杂的东西简单化和简单的东西复杂化都是要被鄙视的;
+4. 对于 Chinese coders 来说, 用英文注释还是用中文注释, it is a problem, 但不管怎样, 注释是为了让别人看懂, 难道是为了炫耀编程语言之外的你的母语或外语水平吗；
+5. 注释不要太乱, 适当的缩进才会让人乐意看. 但也没有必要规定注释从第几列开始 (我自己写代码的时候总喜欢这样), UNIX/LINUX 下还可以约定是使用 tab 还是 space, 个人倾向于 space;
+6. TODO 很不错, 有时候, 注释确实是为了标记一些未完成的或完成的不尽如人意的地方, 这样一搜索, 就知道还有哪些活要干, 日志都省了.
 
