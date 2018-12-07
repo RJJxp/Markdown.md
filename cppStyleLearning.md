@@ -998,3 +998,327 @@ class GargantuanTableIterator {
 5. 注释不要太乱, 适当的缩进才会让人乐意看. 但也没有必要规定注释从第几列开始 (我自己写代码的时候总喜欢这样), UNIX/LINUX 下还可以约定是使用 tab 还是 space, 个人倾向于 space;
 6. TODO 很不错, 有时候, 注释确实是为了标记一些未完成的或完成的不尽如人意的地方, 这样一搜索, 就知道还有哪些活要干, 日志都省了.
 
+
+
+## 9.格式
+
+代码的风格与格式
+
+### 9.1 行长度
+
+每一行字符不超过80个字符
+
+`#include`长路径可以超过80个字符
+
+头文件保护可以无视该原则
+
+### 9.2 非ASCII字符
+
+必须使用`UTF-8`编码
+
+编码的知识还是需要补一下<font color=red>**WTF**</font>
+
+### 9.3 空格还是制表符
+
+使用空格缩进，或者把`tab`设置成空格
+
+谷歌推荐2个空格，但是实际由项目风格定
+
+### 9.4 函数声明与定义
+
+返回类型和函数名在同一行，参数也尽量放在同一行
+
+```c++
+int RjpClass::RjpFunction(int para_name_01, int para_name_02){
+    DoSomething();
+}
+```
+
+```c++
+ReturnType LongClassName::ReallyReallyReallyLongFunctionName(
+    Type par_name1,  // 4 space indent
+    Type par_name2,
+    Type par_name3) {
+  DoSomething();  // 2 space indent
+  ...
+}
+```
+
+### 9.5 Lambda表达式
+
+<font color=red>**WTF**</font>
+
+### 9.6 函数调用
+
+```c++
+bool retval = DoSomething(argument1, argument2, argument3);
+```
+
+```c++
+bool retval = DoSomething(averyveryveryverylongargument1,
+                          argument2, argument3);
+```
+
+```c++
+if (...) {
+  ...
+  ...
+  if (...) {
+    DoSomething(
+        argument1, argument2,  // 4 空格缩进
+        argument3, argument4);
+  }
+```
+
+```c++
+// 通过 3x3 矩阵转换 widget.
+my_widget.Transform(x1, x2, x3,
+                    y1, y2, y3,
+                    z1, z2, z3);
+```
+
+### 9.7 列表初始化格式
+
+与函数调用的格式一样
+
+### 9.8 条件语句
+
+不要再括号内使用空格，`if`和`else`关键字另起一行
+
+```c++
+if (condition) {  // 圆括号里没有空格.
+  ...  // 2 空格缩进.
+} else if (...) {  // else 与 if 的右括号同一行.
+  ...
+} else {
+  ...
+}
+```
+
+重要的是格式一致
+
+```c++
+if<space>(<condition>)<space>{
+    ...	// 注意空格
+}
+```
+
+如果语句中某个 `if-else` 分支使用了大括号的话, 其它分支也必须使用
+
+### 9.9 循环和开关选择语句
+
+空循环体应使用 `{}` 或 `continue`, 而不是一个简单的分号
+
+### 9.10 指针和引用表达式
+
+句点或箭头前后不要有空格. 指针/地址操作符 (`*, &`) 之后不能有空格
+
+```c++
+x = *p;
+p = &x;
+x = r.y;
+x = r->y;
+```
+
+在声明指针变量或参数时, 星号与类型或变量名紧挨都可以:
+
+```c++
+// 好, 空格前置.
+char *c;
+const string &str;
+
+// 好, 空格后置.
+char* c;
+const string& str;
+```
+
+### 9.11 布尔表达式
+
+如果一个布尔表达式超过标准行宽, 断行方式要统一一下
+
+下例中, 逻辑与 (`&&`) 操作符总位于行尾:
+
+```c++
+if (this_one_thing > this_other_thing &&
+    a_third_thing == a_fourth_thing &&
+    yet_another && last_one) {
+  ...
+}
+```
+
+### 9.12 函数返回值
+
+```c++
+return result;                  // 返回值很简单, 没有圆括号.
+// 可以用圆括号把复杂表达式圈起来, 改善可读性.
+return (some_long_condition &&
+        another_condition);
+```
+
+### 9.13 变量及数组初始化
+
+用 `=`, `()` 和 `{}` 均可.
+
+```c++
+int x = 3;
+int x(3);
+int x{3};
+string name("Some Name");
+string name = "Some Name";
+string name{"Some Name"};
+```
+
+```c++
+vector<int> v(100, 1);  // 内容为 100 个 1 的向量.
+vector<int> v{100, 1};  // 内容为 100 和 1 的向量.
+```
+
+
+
+### 9.14 预处理指令
+
+即使预处理指令位于缩进代码块中, 指令也应从行首开始.
+
+```c++
+// 好 - 指令从行首开始
+  if (lopsided_score) {
+#if DISASTER_PENDING      // 正确 - 从行首开始
+    DropEverything();
+# if NOTIFY               // 非必要 - # 后跟空格
+    NotifyClient();
+# endif
+#endif
+    BackToNormal();
+  }
+```
+
+### 9.15 类格式
+
+```c++
+class MyClass : public OtherClass {
+ public:      // 注意有一个空格的缩进
+  MyClass();  // 标准的两空格缩进
+  explicit MyClass(int var);
+  ~MyClass() {}
+
+  void SomeFunction();
+  void SomeFunctionThatDoesNothing() {
+  }
+
+  void set_some_var(int var) { some_var_ = var; }
+  int some_var() const { return some_var_; }
+
+ private:
+  bool SomeInternalFunction();
+
+  int some_var_;
+  int some_other_var_;
+};
+```
+
+
+
+### 9.16 构造函数初始化列表
+
+```c++
+// 如果所有变量能放在同一行:
+MyClass::MyClass(int var) : some_var_(var) {
+  DoSomething();
+}
+
+// 如果不能放在同一行,
+// 必须置于冒号后, 并缩进 4 个空格
+MyClass::MyClass(int var)
+    : some_var_(var), some_other_var_(var + 1) {
+  DoSomething();
+}
+
+// 如果初始化列表需要置于多行, 将每一个成员放在单独的一行
+// 并逐行对齐
+MyClass::MyClass(int var)
+    : some_var_(var),             // 4 space indent
+      some_other_var_(var + 1) {  // lined up
+  DoSomething();
+}
+
+// 右大括号 } 可以和左大括号 { 放在同一行
+// 如果这样做合适的话
+MyClass::MyClass(int var)
+    : some_var_(var) {}
+```
+
+
+
+### 9.17 命名空间格式化
+
+打死也不缩进
+
+### 9.18 水平留白
+
+水平留白的使用根据在代码中的位置决定. 永远不要在行尾添加没意义的留白.
+
+```c++
+void f(bool b) {  // 左大括号前总是有空格.
+  ...
+int i = 0;  // 分号前不加空格.
+// 列表初始化中大括号内的空格是可选的.
+// 如果加了空格, 那么两边都要加上.
+int x[] = { 0 };
+int x[] = {0};
+
+// 继承与初始化列表中的冒号前后恒有空格.
+class Foo : public Bar {
+ public:
+  // 对于单行函数的实现, 在大括号内加上空格
+  // 然后是函数实现
+  Foo(int b) : Bar(), baz_(b) {}  // 大括号里面是空的话, 不加空格.
+  void Reset() { baz_ = 0; }  // 用括号把大括号与实现分开
+```
+
+添加冗余的留白会给其他人编辑时造成额外负担. 因此, 行尾不要留空格. 如果确定一行代码已经修改完毕, 将多余的空格去掉; 
+
+```c++
+// 循环和条件语句
+if (b) {          // if 条件语句和循环语句关键字后均有空格.
+} else {          // else 前后有空格.
+}
+while (test) {}   // 圆括号内部不紧邻空格.
+switch (i) {
+for (int i = 0; i < 5; ++i) {
+switch ( i ) {    // 循环和条件语句的圆括号里可以与空格紧邻.
+if ( test ) {     // 圆括号, 但这很少见. 总之要一致.
+for ( int i = 0; i < 5; ++i ) {
+for ( ; i < 5 ; ++i) {  // 循环里内 ; 后恒有空格, ;  前可以加个空格.
+switch (i) {
+  case 1:         // switch case 的冒号前无空格.
+    ...
+  case 2: break;  // 如果冒号有代码, 加个空格.
+```
+
+```c++
+// 操作符
+// 赋值运算符前后总是有空格.
+x = 0;
+
+// 其它二元操作符也前后恒有空格, 不过对于表达式的子式可以不加空格.
+// 圆括号内部没有紧邻空格.
+v = w * x + y / z;
+v = w*x + y/z;
+v = w * (x + z);
+
+// 在参数和一元操作符之间不加空格.
+x = -5;
+++x;
+if (x && !y)
+  ...
+```
+
+### 9.19 垂直留白
+
+这不仅仅是规则而是原则问题了: 不在万不得已, 不要使用空行. 尤其是: 两个函数定义之间的空行不要超过 2 行, 函数体首尾不要留空行, 函数体中也不要随意添加空行.
+
+### 
+
+### 10.结束语
+
+运用常识和判断力, 风格要保持一致!!!!!!!!!!!!!
