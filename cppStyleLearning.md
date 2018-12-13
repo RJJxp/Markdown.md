@@ -1109,6 +1109,33 @@ if<space>(<condition>)<space>{
 
 空循环体应使用 `{}` 或 `continue`, 而不是一个简单的分号
 
+```c++
+switch (var) {
+  case 0: {  // 2 空格缩进
+    ...      // 4 空格缩进
+    break;
+  }
+  case 1: {
+    ...
+    break;
+  }
+  default: {
+    assert(false);
+  }
+}
+```
+
+
+
+```c++
+for (int i = 0; i < kSomeNumber; ++i)
+  printf("I love you\n");
+
+for (int i = 0; i < kSomeNumber; ++i) {
+  printf("I take it back\n");
+}
+```
+
 ### 9.10 指针和引用表达式
 
 句点或箭头前后不要有空格. 指针/地址操作符 (`*, &`) 之后不能有空格
