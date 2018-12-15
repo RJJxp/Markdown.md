@@ -445,24 +445,365 @@ for k,v in d.items():
 
 可用于 `for` 循环的数据类型有:
 
-一类是集合数据类型, 如 `list`, `tuple` , `dic` , `set` , `str`
+一类是集合数据类型, 如 `list` , `tuple` , `dic` , `set` , `str`
 
 一类是生成器, `generator` 和 `generator function`
 
-他们统称为 `可迭代对象` Iterable
+他们统称为可迭代对象 `Iterable`
 
 
 
-可以使用 `next()` 的都是迭代器
+可以使用 `next()` 的都是迭代器 `Iterator`
+
+`generator` 是迭代器
+
+可以使用 `iter()` 把 `Iterable` 变成 `Iterator` 类型
 
 <font color= red> **WTF**</font>
 
+**是不是意味着 `list` , `tuple` , `dic` , `set` , `str` 都是 `iterable` 的子类**
 
-
-## 3 函数式编程
-
-
+**而 `Iterable` 是父类**
 
 
 
+## 3.函数式编程
+
+函数是面向对象程序设计的基本单元
+
+但是**函数式编程**也可以归结到面向过程的编程, 但是思想更加接近数学计算
+
+它是一种抽象程度很高的编程范式
+
+其特点是, 允许把函数本身作为参数传入另一个函数, 还允许返回一个函数
+
+### 3.1 高阶函数
+
+变量可以指向函数, 函数名也是变量
+
+```python
+abs = 10
+abs(-9)	# 报错
+```
+
+变量也可以指向函数, 函数的参数能接收变量, 说明一个函数可以当做另一个函数的参数
+
+这种函数可以成为高阶函数
+
+```python
+def add(x, y, f):
+    return f(x) + f(y)
+```
+
+- `map` 和 `reduce` 函数
+
+  `map` 函数接收两个参数, 一个是函数, 一个是 `Iterable` , `map()` 将传入函数一次作用到序列的每个元素, 并作为新的 `Iterator` 返回
+
+  ```python
+  def f(x):
+      return x * x
+  r = map(f,[1, 2, 3, 4, 5])
+  list(r)	# [1, 4, 9, 16, 25]
   
+  print(list(map(str, [1, 2, 3, 4, 5])))
+  ```
+
+  `reduce()` 的用法. `reduce` 把一个函数作用在一个序列上, 这个函数必须接收两个参数, `reduce` 把结果继续和下一个元素做累积运算
+
+  ```python
+  def add(x, y):
+      reutrn x + y
+  reduce(add, [1, 3, 5, 7, 9])	# 25
+  ```
+
+- `filter()` 函数
+
+  接收一个函数一个序列, `filter()` 把传入的函数依次作用于每个元素, 然后根据返回值是 `True` 或者 `False` 决定是删除还是保留元素
+
+  返回值是一个 `Iterator`
+
+  ```python
+  # 使用filter函数筛选回数
+  def judge_palindrome(n):
+      n_str = str(n)
+      n_len = len(n_str)
+      i = 0
+      is_palindrome = True
+      while i < n_len - 1:
+          i = i + 1
+          if n_str[i] != n_str[n_len - 1 - i]:
+              is_palindrome = False
+              break
+      return is_palindrome
+  
+  re = filter(judge_palindrome, [121, 3325, 737138, 7491731, 12376, 328823])
+  
+  print (list(re))
+  ```
+
+- `sorted` 函数
+
+  可以对 `List` 进行排序, 需要给一个 `key` 关键字
+
+  ```python
+  sorted([1, 2, -4, -10, 7, 0.4], key = abs, reverse = True)
+  ```
+
+
+
+### 3.2 返回函数
+
+屎一样的难受
+
+``` python
+def lazy_sum(* args):
+    def sum():
+        ax = 0
+        for n in args:
+            ax = ax + n
+        return ax
+    return sum	# 调用 lazy_sum 返回的是求和函数
+f = lazy_sum(1, 3, 5)
+f()	# 调用f()函数, 结果是9
+```
+
+
+
+  ### 3.3 匿名函数
+
+```python
+list(map(lambda x: x * x, [1, 2, 3, 4, 5]))
+```
+
+
+
+### 3.4 装饰器
+
+希望增加函数功能, 又不希望修改函数的定义
+
+在代码运行期间动态增加功能的方式, 称之为**装饰器**  `Decorator`
+
+和设计模式有想通之处
+
+注意, 返回值的`()`
+
+```python
+def log(func):
+    def wrapper():
+        print ('call %s():' % func.__name__)
+        return func()
+    return wrapper
+
+@log    # 相当于语句 now = log(now)
+def now():
+    print ('rjrjjr')
+now() 
+# output
+# call now()
+# rjrjjr
+
+# 三重嵌套
+def log(text):
+    def decorator(func):
+        def wrapper():
+            print ('%s %s(): ' % (text, func.__name__))
+            return func()
+        return wrapper
+    return decorator
+
+# @log('fuck')
+def now():
+    print ('rjrjjr')
+
+now = log('fuck')(now)
+# log('fuck') = decorator
+# log('fuck')(now) = decorator(now)
+
+now()
+```
+
+
+
+### 3.5 偏函数
+
+```python
+# int函数, 转成2进制
+int('12345', base = 2)
+
+# 定义int2函数, 功能如上
+def int2(x, base = 2):
+    return int(x, base = 2)
+
+# 使用偏函数定义
+int2 = functools.partial(int, base = 2)
+```
+
+关于偏函数的创建
+
+
+```python
+# 创建偏函数可以接受函数对象, *args, **kw
+kw = {'base': 2}
+int('1000', **kw)
+
+max2 = functools.partial(max, 10)
+# 实际会把10当做 *args可变参数传入max函数
+```
+
+
+
+## 4.模块
+
+每个 `.py` 文件称之为一个模块
+
+引入包 `pkg` 来避免模块名字的冲突
+
+每个 `pkg` 里面必须有一个 `__init__.py` 的文件, 否则会当做普通目录处理
+
+注意命名不要有冲突
+
+### 4.1 使用模块
+
+```python
+#!/usr/bin/env python3
+# _*_ coding: utf-8 _*_
+
+'a test module'	# 模块的注释
+
+__author__ = 'rjp'	# 作者的注释
+
+import sys	# 引入模块
+
+def test():
+    args = sys.argv
+    if len(args) == 1:
+        print ('hello, motherfucker')
+    elif len(args) == 2:
+        print ('why not go fuck yourself')
+    else:
+        print ('eat your dick')
+
+if __name__ == '__main__':	# ????
+    test()
+```
+
+只希望在模块内部使用的变量和函数(私有变量), 通常使用前缀 `_`
+
+虽然 `python` 并不会阻止你直接在模块外调用私有变量和函数
+
+但是不建议你直接调用
+
+### 4.2 安装第三方模块
+
+通过包管理工具 `pip` 完成
+
+发现自己安装的 `numpy` 没有办法 `import` 进来
+
+原来是环境配置有问题
+
+
+
+解释器要选择系统变量, 而不是新创建
+
+每一回我都是根据项目新创建一个解释器(基于系统)
+
+然而, `numpy` 库是安装在系统的 `python` 变量中
+
+所以无法 `import` 
+
+
+
+## 5.面向对象编程
+
+### 5.1 类和实例
+
+```python
+class Student(object):
+    
+    def __init__(self, name, score):	# 第一个参数永远是self
+        self.name = name	# 直接把属性绑定上去
+        self.score = score
+    
+    def print_score(self):
+        print('%s %s' % (self.name, self.score))
+```
+
+### 5.2 限制访问
+
+初始化的时候给变量前面加两个下划线 `__`
+
+但是 `python` 里面用双下划线开头, 双下划线结尾的是特殊变量
+
+特殊变量可以直接访问, 所以在类中变量的命名里面, 不允许像特殊变量一样命名
+
+
+
+但其实使用双下划线也可以在外部访问
+
+`_<ClassName>__<VariableName>`
+
+所以靠自觉
+
+
+
+有一个陷阱
+
+```python
+student.__name = 'new name'
+student.__name	# 实际只是给student新增了一个变量
+```
+
+
+
+### 5.3 继承和多态
+
+子类同名方法会自动继承父类的同名方法
+
+相对于cpp, python确实显得太简单了
+
+
+
+### 5.4 获取对象信息
+
+```python
+type(123)
+
+def fn():
+    pass
+type(fn)	# types.FunctionType
+
+isinstance(123, int)
+
+dir()	# 获得一个对象的所有属性和方法
+```
+
+
+
+### 5.5 实例属性和类属性
+
+直接定义就好
+
+
+
+## 6.面向对象高级编程
+
+前一章节只是介绍了 封装, 继承和多态3个基础概念
+
+这一章节介绍更加高级的特性
+
+
+
+### 6.1 使用 `__slots__`
+
+限制类能添加的属性, 使用 `tuple` 定义
+
+```python
+class Student:
+    __slots__ = ('name', 'age') # tuple
+```
+
+`__slots__` 仅对当前的类有效, 对子类没有限制效果
+
+
+
+### 6.2 
