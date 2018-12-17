@@ -806,4 +806,68 @@ class Student:
 
 
 
-### 6.2 
+### 6.2 使用 `@property`
+
+`@property` 本质是装饰器 `decorator` , 负责把一个方法变成属性调用
+
+```python
+class Student(object):
+    
+    @property
+    def score(self):
+        return self._score
+    
+    @score.setter	# 注意这里的setter是自动补全出来的
+    def score(self, value):
+        self._score = value
+```
+
+
+
+### 6.3 多重继承
+
+`MixIn` 的设计模式
+
+
+
+### 6.4 定制类
+
+我们已经知道的是 `__init__()` , `__len__()` 
+
+其实还有 `__str__()` , `__iter__()` , `__repr__()` , `__getattr__()`
+
+不赘述了, 太无聊了
+
+
+
+### 6.5 使用枚举类
+
+```python
+rom enum import Enum, unique
+
+Month = Enum('Month', ('Jan', 'Feb', 'Mar'))
+
+for name, member in Month.__members__.items():
+    print (name, '-->', member, ',', member.value)
+
+@unique #装饰器, 可以帮我们检查有没有重复值
+class Weekday(Enum):
+    sun = 0
+    mon = 1
+    tue = 2
+```
+
+
+
+### 6.6 使用元类
+
+`type()` 不仅可以查看变量类型, 还可以动态地创建类
+
+`metaclass` 元类
+
+先定义 `metaclass` , 就可以创建类, 最后创建实例
+
+
+
+这在是正真的面向对象
+
