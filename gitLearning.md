@@ -241,6 +241,8 @@ SSH设置
 - `git remote add <RemoteName> <url>`添加远程库
 - `git remote rm <RemoteName>`删除远程库
 
+- `git remote update origin prune` 如果有了新的远程库分之, 但是找不到可以用这个语句 
+
 
 
 以下，默认只有一个远程库，远程库名字是`origin`
