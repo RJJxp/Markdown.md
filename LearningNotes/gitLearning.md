@@ -81,7 +81,7 @@
 
   是出于多人协作的考虑
 
-  ![git log](pic/git_log_01.png)
+  ![git log](pic/gitLearning/git_log_01.png)
 
   `git log --pretty=oneline`
 
@@ -112,7 +112,7 @@
 
 再通过commit命令同意提交，将暂存区的内容提交到分支
 
-![工作区暂存区](pic/ws_stage_branch.png)
+![工作区暂存区](pic/gitLearning/ws_stage_branch.png)
 
 ### 2.3 撤销修改
 
@@ -221,7 +221,7 @@ SSH设置
 
   而关闭后，`git log`中两个分支的合并会有两条线变成一条线
 
-  ![log 图](pic/logpic.png)
+  ![log 图](pic/gitLearning/logpic.png)
 
 
 
