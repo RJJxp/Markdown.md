@@ -42,9 +42,9 @@
 
   - 通过 `apt-get` 安装
 
-    > sudo apt-get install ros-indigo-rosserial-arduino
+    > sudo apt-get install ros-kinetic-rosserial-arduino
     > 
-    > sudo apt-get install ros-indigo-rosserial
+    > sudo apt-get install ros-kinetic-rosserial
 
   - 通过源码安装
 
