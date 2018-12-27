@@ -10,7 +10,9 @@
 
 ​	具体开发手册和产品资料可见 [百度网盘链接](https://pan.baidu.com/s/1jQxyWd4KqIz7IbguvW-UoQ) 提取码: jqyp
 
+绿色can H
 
+红色can L
 
 
 

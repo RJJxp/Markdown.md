@@ -20,6 +20,8 @@
 
 感应范围 10cm - 30cm
 
+建议安装高度: 离地面15cm左右
+
 - 接线
 
   ![pic01](pic/infrared/pic01.png)
@@ -158,7 +160,7 @@ void loop()
   //   since it takes that long for the sensor to stabilize
   if ( (millis()-range_timer) > 50){
     if (val==LOW){
-      range_msg.range = 0;
+      range_msg.range = val;
     } else {
       range_msg.range = val;
     }
