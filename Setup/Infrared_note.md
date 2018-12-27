@@ -2,9 +2,7 @@
 
 参考网站
 
-[参考01](https://item.taobao.com/item.htm?spm=a230r.1.14.103.48dc6c91jfxiRq&id=527070300777&ns=1&abbucket=6#detail)  [参考02](https://www.sohu.com/a/216548608_796852)  [参考03](https://www.ncnynl.com/archives/201610/918.html)
-
-
+[淘宝信息](https://item.taobao.com/item.htm?spm=a230r.1.14.103.48dc6c91jfxiRq&id=527070300777&ns=1&abbucket=6#detail)  [环境配置参考01](https://www.sohu.com/a/216548608_796852)  [环境配置参考02](https://www.ncnynl.com/archives/201610/918.html) [代码参考](https://www.arduino.cn/thread-80395-1-1.html)
 
 [TOC]
 
@@ -30,7 +28,15 @@
 
   ![pic03](pic/infrared/pic03.png)
 
-### 1.2 软件
+### 1.2 接线
+
+褐色正极: 接正极
+
+蓝色负极: 接负极
+
+黑色信号线: 接数字信号0
+
+### 1.3 软件
 
 - 安装 `Arduino` IDE
 
@@ -108,82 +114,6 @@
 
 ### 2.3 源代码
 
-实例代码(不能直接用)
-
-```c++
-/* 
- * rosserial IR Ranger Example  
- * 
- * This example is calibrated for the Sharp GP2D120XJ00F.
- */
-
-#include <ros.h>
-#include <ros/time.h>
-#include <sensor_msgs/Range.h>
-
-ros::NodeHandle  nh;
-sensor_msgs::Range range_msg;
-ros::Publisher pub_range( "range_data", &range_msg);
-
-const int analog_pin = 0;
-unsigned long range_timer;
-
-/*
- * getRange() - samples the analog input from the ranger
- * and converts it into meters.  
- */
-float getRange(int pin_num){
-    int sample;
-    // Get data
-    sample = analogRead(pin_num)/4;
-    // if the ADC reading is too low, 
-    //   then we are really far away from anything
-    if(sample < 10)
-        return 254;     // max range
-    // Magic numbers to get cm
-    sample= 1309/(sample-3);
-    return (sample - 1)/100; //convert to meters
-}
-
-char frameid[] = "/ir_ranger";
-
-void setup()
-{
-  nh.initNode();
-  nh.advertise(pub_range);
-  
-  range_msg.radiation_type = sensor_msgs::Range::INFRARED;
-  range_msg.header.frame_id =  frameid;
-  range_msg.field_of_view = 0.01;
-  range_msg.min_range = 0.03;
-  range_msg.max_range = 0.4;
-  
-}
-
-void loop()
-{
-  // publish the range value every 50 milliseconds
-  //   since it takes that long for the sensor to stabilize
-  if ( (millis()-range_timer) > 50){
-    range_msg.range = getRange(analog_pin);
-    range_msg.header.stamp = nh.now();
-    pub_range.publish(&range_msg);
-    range_timer =  millis();
-  }
-  nh.spinOnce();
-}
-```
-
-看注释可知, 改代码是对于 `Sharp GP2D120XJ00F` 解析使用的
-
-但由于我们的传感器是开关型传感器
-
-不需要数据, 只需要 `0` 或 `1` 的信号
-
-所以不需要解析
-
-可将代码改为如下
-
 ```c++
 #include <ros.h>
 #include <ros/time.h>
@@ -193,7 +123,9 @@ ros::NodeHandle  nh;
 sensor_msgs::Range range_msg;
 ros::Publisher pub_range( "infrared_data", &range_msg);
 
-const int analog_pin = 0;
+const int hongwai = 0;
+int val = 0;
+
 unsigned long range_timer;
 
 int getRange(int pin_num){
@@ -215,14 +147,22 @@ void setup()
   range_msg.min_range = 0.01;
   range_msg.max_range = 10;
   
+  pinMode(hongwai,INPUT);
+  
 }
 
 void loop()
 {
+  val = digitalRead(hongwai);
   // publish the range value every 50 milliseconds
   //   since it takes that long for the sensor to stabilize
   if ( (millis()-range_timer) > 50){
-    range_msg.range = getRange(analog_pin);
+    if (val==LOW){
+      range_msg.range = 0;
+    } else {
+      range_msg.range = val;
+    }
+//    range_msg.range = getRange(analog_pin);
     range_msg.header.stamp = nh.now();
     pub_range.publish(&range_msg);
     range_timer =  millis();
