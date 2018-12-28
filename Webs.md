@@ -22,6 +22,8 @@ ubuntu系统下 https://www.linuxprobe.com/linux-ios.html
 
 ### 树莓派安装ubuntu
 
+树莓派可安装系统 http://rpifans.cn/pages/imgdown/index.html
+
 https://blog.csdn.net/jacka654321/article/details/83044233
 
 https://www.linuxidc.com/Linux/2016-10/136433.htm
