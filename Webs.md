@@ -2,6 +2,38 @@
 
 记录一些比较重要的网址
 
+
+
+## Ubuntu
+
+### grep语句
+
+https://www.linuxidc.com/Linux/2018-11/155397.htm
+
+### 制作系统U盘
+
+windows系统下 https://www.linuxidc.com/Linux/2016-04/130520.htm
+
+ubuntu系统下 https://www.linuxprobe.com/linux-ios.html
+
+### 树莓派安装ubuntu
+
+https://blog.csdn.net/jacka654321/article/details/83044233
+
+https://www.linuxidc.com/Linux/2016-10/136433.htm
+
+https://blog.csdn.net/zz531987464/article/details/83051955
+
+https://blog.csdn.net/messidona11/article/details/71514202
+
+http://tieba.baidu.com/p/4872974750
+
+https://blog.csdn.net/henryheheng/article/details/78907406?utm_source=blogxgwz8
+
+http://ubuntu-mate.org/download/
+
+
+
 ## ROS相关
 
 ### ROS Kinetic
@@ -31,6 +63,10 @@ https://www.ncnynl.com/archives/201609/791.html
 ### Arduino
 
 https://www.ncnynl.com/archives/201610/918.html
+
+
+
+
 
 
 
