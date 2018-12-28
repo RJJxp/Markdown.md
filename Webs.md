@@ -10,6 +10,10 @@
 
 https://www.linuxidc.com/Linux/2018-11/155397.htm
 
+### 分区
+
+https://www.linuxidc.com/Linux/2013-05/85115.htm
+
 ### 制作系统U盘
 
 windows系统下 https://www.linuxidc.com/Linux/2016-04/130520.htm
@@ -31,6 +35,12 @@ http://tieba.baidu.com/p/4872974750
 https://blog.csdn.net/henryheheng/article/details/78907406?utm_source=blogxgwz8
 
 http://ubuntu-mate.org/download/
+
+http://tieba.baidu.com/p/5653400457
+
+http://tieba.baidu.com/p/5367213783
+
+
 
 
 
