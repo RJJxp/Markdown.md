@@ -20,27 +20,17 @@ windows系统下 https://www.linuxidc.com/Linux/2016-04/130520.htm
 
 ubuntu系统下 https://www.linuxprobe.com/linux-ios.html
 
-### 树莓派安装ubuntu
+### 树莓派安装ubuntu mate
 
 树莓派可安装系统 http://rpifans.cn/pages/imgdown/index.html
 
-https://blog.csdn.net/jacka654321/article/details/83044233
+树莓派3b+安装 ubuntu mate https://blog.csdn.net/jacka654321/article/details/83044233
 
-https://www.linuxidc.com/Linux/2016-10/136433.htm
+树莓派3b+ 安装 ubuntu mate 出现彩虹屏 卡住解决方案
 
-https://blog.csdn.net/zz531987464/article/details/83051955
+https://blog.csdn.net/weixin_42429385/article/details/83537377
 
-https://blog.csdn.net/messidona11/article/details/71514202
-
-http://tieba.baidu.com/p/4872974750
-
-https://blog.csdn.net/henryheheng/article/details/78907406?utm_source=blogxgwz8
-
-http://ubuntu-mate.org/download/
-
-http://tieba.baidu.com/p/5653400457
-
-http://tieba.baidu.com/p/5367213783
+ubuntu mate 网络设置
 
 
 
