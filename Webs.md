@@ -22,7 +22,11 @@ ubuntu系统下 https://www.linuxprobe.com/linux-ios.html
 
 ### 树莓派安装ubuntu mate
 
+树莓派LED灯状态解释 http://shumeipai.nxez.com/2014/09/30/raspberry-pi-led-status-detail.html
+
 树莓派可安装系统 http://rpifans.cn/pages/imgdown/index.html
+
+树莓派3b+ Ubuntu mate 系统官网下载 https://ubuntu-mate.org/raspberry-pi/
 
 树莓派3b+安装 ubuntu mate https://blog.csdn.net/jacka654321/article/details/83044233
 
@@ -32,9 +36,19 @@ https://blog.csdn.net/weixin_42429385/article/details/83537377
 
 ubuntu mate 网络设置
 
+https://blog.csdn.net/wangfengtong/article/details/72771974
 
+https://blog.csdn.net/fendoubasaonian/article/details/52980697
 
+https://blog.csdn.net/qianxiayi/article/details/82970301
 
+https://blog.csdn.net/henryheheng/article/details/78907406
+
+https://www.jianshu.com/p/9795cd0d7f60
+
+https://blog.csdn.net/chcyj/article/details/78685578
+
+https://blog.csdn.net/gddxz_zhouhao/article/details/53384457
 
 ## ROS相关
 
