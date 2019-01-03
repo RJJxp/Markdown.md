@@ -165,7 +165,11 @@ start.elf
 
 若只有 `lo` 一个网络选项, 说明网卡驱动有问题
 
+
+
 参考链接 https://www.jianshu.com/p/9795cd0d7f60
+
+
 
 其他情况的wifi无法连接的解决方案非常简单
 

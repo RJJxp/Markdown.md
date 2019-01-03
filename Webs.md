@@ -30,6 +30,10 @@ ubuntu系统下 https://www.linuxprobe.com/linux-ios.html
 
 树莓派3b+安装 ubuntu mate https://blog.csdn.net/jacka654321/article/details/83044233
 
+树莓派3b+安装 ubuntu mate 良心教程 
+
+https://blog.csdn.net/weixin_39449466/article/details/80686835#4%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96
+
 树莓派3b+ 安装 ubuntu mate 出现彩虹屏 卡住解决方案
 
 https://blog.csdn.net/weixin_42429385/article/details/83537377
@@ -49,6 +53,26 @@ https://www.jianshu.com/p/9795cd0d7f60
 https://blog.csdn.net/chcyj/article/details/78685578
 
 https://blog.csdn.net/gddxz_zhouhao/article/details/53384457
+
+树莓派3b+ Ubuntu mate 重新resize Ubuntu分区大小
+
+http://bbs.eeworld.com.cn/thread-506088-1-1.html
+
+### RK3399 开发板 Ubuntu1604
+
+http://wiki.t-firefly.com/zh_CN/Firefly-RK3399/started.html
+
+### X3399 开发板 Ubuntu 1604
+
+官网 http://www.9tripod.com/showpro.php?id=84
+
+淘宝链接 相比官网更加专业 
+
+https://item.taobao.com/item.htm?spm=a1z10.1-c.w5003-21206897458.10.2075158ewZmZkL&id=544731661336&scene=taobao_shop
+
+开发板wiki页面 
+
+http://x.9tripod.com/wiki/zh/index.php/X3399%E5%BC%80%E5%8F%91%E6%9D%BF
 
 ## ROS相关
 
