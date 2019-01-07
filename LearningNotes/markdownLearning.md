@@ -1,3 +1,21 @@
+
+
+# Markdown 学习笔记
+
+记一些排版的注意点和一些好玩的小技巧
+
+记录语法没有意义
+
+ 
+
+## 关于排版
+
+
+
+## 好玩的东西
+
+- flow流程图的使用
+
 ```flow
 st=>start: 开始
 op=>operation: My Operation
@@ -32,87 +50,33 @@ c3()->e
 
 
 
-
-
-
-
-[]: fldsajfl
-
--[x] fjlsadjf
+- checkbox的使用
 
 - [x] fdsfa
 - [ ] fsdfas
 
 
 
-目录
+- 锚点的使用
 
-[01](#rrr)
+  只能链接到标题, 适合自己做目录, 但我一般用toc语句
 
-jflsd
-d
-fds
-fd
+  [01](#rrr)
 
-sdf
-dsf
-ds
-fds
-fds
-fds
-f
-dsf
-dsf
-dsf
-sd
-fds
-fds
-f
-dsf
-dsf
-ds
-fds
-fds
-fds
-f
+  jflsd
+  d
+  fds
+  fd
 
-f
-ds
-s
-df
+  sdf
+  dsf
+  ds
+  fds
+  fds
+  fds
+  f
+  dsf
+  dsf
 
+  ### rrr
 
-fd
-sf
-
-
-fds
-fs
-
-
-
-fsd
-fds
-f
-
-
-fds
-f
-sf
-dsf
-
-
-
-fds
-fds
-fds
-f
-
-
-ds
-fds
-
-# rrr
-```
-
-```

@@ -209,7 +209,7 @@ SSH设置
 
 - `git branch -d <branch>`删除某一分支
 
-- `git checkout <branch>`切换到某一分支
+- `git checkout <branch>`切换到某一分支, 可以直接切换到远程分支
 
 - `git checkout -b <new_branch>`创建并切换到新分支
 

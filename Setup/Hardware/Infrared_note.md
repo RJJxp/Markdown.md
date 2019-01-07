@@ -2,7 +2,15 @@
 
 参考网站
 
-[淘宝信息](https://item.taobao.com/item.htm?spm=a230r.1.14.103.48dc6c91jfxiRq&id=527070300777&ns=1&abbucket=6#detail)  [环境配置参考01](https://www.sohu.com/a/216548608_796852)  [环境配置参考02](https://www.ncnynl.com/archives/201610/918.html) [代码参考](https://www.arduino.cn/thread-80395-1-1.html)
+[淘宝信息](https://item.taobao.com/item.htm?spm=a230r.1.14.103.48dc6c91jfxiRq&id=527070300777&ns=1&abbucket=6#detail) 
+
+[环境配置参考01](https://www.sohu.com/a/216548608_796852) 
+
+[环境配置参考02](https://www.ncnynl.com/archives/201610/918.html) 
+
+[代码参考](https://www.arduino.cn/thread-80395-1-1.html)
+
+
 
 [TOC]
 
@@ -15,6 +23,8 @@
 淘宝链接可见 [link](https://item.taobao.com/item.htm?spm=a230r.1.14.103.48dc6c91jfxiRq&id=527070300777&ns=1&abbucket=6#detail) 以下数据仅供参考
 
 红外漫反射式光电开关传感器E3F-DS30C4
+
+<font color=red>**注意硬件名字为 '开关' , 所以输出信号值肯定为0或1**</font>
 
 电压 6~36V
 
@@ -37,6 +47,8 @@
 蓝色负极: 接负极
 
 黑色信号线: 接数字信号0
+
+<font color=red>**注意arduino板子有模拟信号也有数字信号, 我们要接数字信号**</font>
 
 ### 1.3 软件
 
@@ -84,7 +96,7 @@
 
 ### 2.1 大致原理
 
-`arduino` IDE将写好的程序通过 `upload` 写入 `arduino` 开发板的内存
+`arduino` IDE将写好的程序通过 `upload` 烧入 `arduino` 开发板的内存
 
 使用 `rosrun rosserial_python serial_node.py _port:=<port_name>` 语句
 
