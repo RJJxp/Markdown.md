@@ -182,7 +182,7 @@ Cpplint 检查风格错误
 
 - 整数用 `0` , 实数用 `0.0` , 字符串用 `'\0'` , 指针C++11用 `nullptr` 
 
-- 尽可能用 `sizeof(varname)` 代替 `sizeof(type)`
+- 尽可能用 `sizeof(varname)` 代替 `sizeof(type)` 
 
 	```c++
 	Struct data;
@@ -190,7 +190,7 @@ Cpplint 检查风格错误
 	memset(&data, 0, sizeof(data));	// 而非 memset(&data, 0, sizeof(Struct))
 	```
 
-- `auto` 的使用
+-  `auto` 的使用
 
   注意陷阱 `auto x(3)` 和 `auto x{3}` 的区别
 

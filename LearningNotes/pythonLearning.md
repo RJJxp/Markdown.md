@@ -20,11 +20,11 @@
 
 命令行和Python交互模式
 
-`print()` 和 `input()` 函数
+ `print()` 和 `input()` 函数
 
 ### 1.2 缩进 
 
-`:` 结尾, 视作代码块(相当于C++的 `{}` )
+ `:` 结尾, 视作代码块(相当于C++的 `{}` )
 
 ```python
 a = 100
@@ -42,9 +42,9 @@ else:
 
 整形, 浮点, 字符串(不变), 布尔, 空值, 变量, 常量
 
-字符串注意转义符 `\`
+字符串注意转义符 `\` 
 
-布尔 `and` `or` `not`
+布尔 `and` `or` `not` 
 
 Python是动态语言, 更加灵活
 
@@ -67,11 +67,11 @@ print(b) # ABC
 
 ### 1.4 字符编码
 
-`ASCII` 编码: 127个字符, 1个字节, 只支持英文和某些字符
+` ASCII` 编码: 127个字符, 1个字节, 只支持英文和某些字符
 
-`Unicode` 编码: 解决多语言的乱码, 但是存储和传输不便
+ `Unicode` 编码: 解决多语言的乱码, 但是存储和传输不便
 
-`UTF-8` 编码: 根据不同字符大小编码成1-6个字节, 英文1个字节, 汉子3个字节, 节省空间
+ `UTF-8` 编码: 根据不同字符大小编码成1-6个字节, 英文1个字节, 汉子3个字节, 节省空间
 
 记事本打开时的编码转换
 
@@ -93,11 +93,11 @@ chr(66)	# 'B' chr()编码转换为字符
 '\u4e2d\u6587'	# '中文'
 ```
 
-内存中 `str` 以 `Unicode` 表示, 网络传输或者保存磁盘, 需要转换成以字节为单位的 `bytes`
+内存中 `str` 以 `Unicode` 表示, 网络传输或者保存磁盘, 需要转换成以字节为单位的 `bytes` 
 
-可以使用 `encode` 把 `str` 编码为指定的 `byte`
+可以使用 `encode` 把 `str` 编码为指定的 `byte` 
 
-可以使用`decode` 把 `byte` 变成 `str`
+可以使用`decode` 把 `byte` 变成 `str` 
 
 ```python
 x = b'ABC'
@@ -117,7 +117,7 @@ b'\xe4\xbb\xbb\xe5\xae\xb6\xe5\xb9\xb3'.decode('utf-8') # '任家平'
 
 第1行告诉Linux系统, 这是一个Python可执行程序
 
-第2行告诉Python解释器, 按照 `UTF-8` 读取源码, 否则会有乱码, 前提是写入文件也用的是 `UTF-8`
+第2行告诉Python解释器, 按照 `UTF-8` 读取源码, 否则会有乱码, 前提是写入文件也用的是 `UTF-8` 
 
 ### 1.5 格式化
 
@@ -135,11 +135,11 @@ print ('%.2f' % 3.1415926)	# 3.14
 
 在现在的实验里面, `print()` 只能给一个语句格式化
 
-`%` 格式化符号只格式化前面紧跟的字符串
+ `%` 格式化符号只格式化前面紧跟的字符串
 
 ### 1.6 `List` 和 `tuple`
 
-`list` 和cpp的 `vector` 用法差不多,   
+ `list` 和cpp的 `vector` 用法差不多,   
 
 不同的是 `list` 可以通过负数的索引, 从后到前取值
 
@@ -159,9 +159,9 @@ list = ['123', 1, ['r', True], False]
 list = []
 ```
 
-`tuple` 和 `list` 大致相同, 没有 `append()` 和 `insert()` 
+ `tuple` 和 `list` 大致相同, 没有 `append()` 和 `insert()` 
 
-`tuple` 的元素不可变, 无法在除了初始化以外的位置赋值
+ `tuple` 的元素不可变, 无法在除了初始化以外的位置赋值
 
 ```python
 tuple = ('r', 'j', 'p')
@@ -178,7 +178,7 @@ tuple[2][1] = 'Y'	# 合法
 
 ### 1.7 条件判断, 循环, 
 
-`if` , `elif` , `else`  
+ `if` , `elif` , `else`  
 
 ```python
 l = ['j', 'r', 'p']
@@ -197,7 +197,7 @@ while (n < 100):
 
 ### 1.8 `dic` 和 `set`
 
-`dic` 相当于cpp的 `map`, 映射
+ `dic` 相当于cpp的 `map`, 映射
 
 ```python
 # 无序, 类型任意
@@ -208,9 +208,9 @@ print (d['rjp'])
 d = {0:, 222:'fdasf', True:1222}
 ```
 
-`dic` 通过 `Hash` 算法通过 `key` 来计算 `value` , `key` 不能变
+ `dic` 通过 `Hash` 算法通过 `key` 来计算 `value` , `key` 不能变
 
-`set` 无重复对象
+ `set` 无重复对象
 
 ### 1.9 函数
 
@@ -335,9 +335,9 @@ def fact_iter(num, product):
 
 ### 2.1 切片
 
-通过 `:` 更加快捷的取出 `list` 之中的数据, 返回值是 `list`, 不改变原数据
+通过 `:` 更加快捷的取出 `list` 之中的数据, 返回值是 `list` , 不改变原数据
 
-`tuple` 切片的返回值依然是 `tuple`
+ `tuple` 切片的返回值依然是 `tuple` 
 
 ```python
 list = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -385,27 +385,27 @@ for k,v in d.items():
 
 ### 2.3 列表生成式
 
-如果要生成 `[1, 4, 9, 16, 25, 36,..., 100]`
+如果要生成 `[1, 4, 9, 16, 25, 36,..., 100]` 
 
-使用语句 `[x * x for x in range(1,11)]`
+使用语句 `[x * x for x in range(1,11)]` 
 
-还可以添加条件判断 `[x * x for x in range(1,11) if x % 2 == 0]`
+还可以添加条件判断 `[x * x for x in range(1,11) if x % 2 == 0]` 
 
 
 
-`for` 循环可以一次两个变量, 如 `dic` 的 `item` , 列表生成式也可以
+ `for` 循环可以一次两个变量, 如 `dic` 的 `item` , 列表生成式也可以
 
-`[m + n for m in 'ABC' for n in 'XYZ']`
+ `[m + n for m in 'ABC' for n in 'XYZ']` 
 
-`[k + '=' + v for k, v in dic.items()] `
+ `[k + '=' + v for k, v in dic.items()] ` 
 
 
 
 列表生成式里面也可以使用各种方法
 
-`[s.lower() for s in List]`
+ `[s.lower() for s in List]` 
 
-`[s.lower() for s in List if isinstance(s, str)]`
+ `[s.lower() for s in List if isinstance(s, str)]` 
 
 
 
@@ -417,15 +417,15 @@ for k,v in d.items():
 
 如果列表元素可以根据某种算法推算出来, 不必创建完整的列表, 可以在循环的过程中推算除后续元素
 
-边计算边循环的机制叫做 `generator`
+边计算边循环的机制叫做 `generator` 
 
 
 
 定义 `generator` 方法:
 
-- 列表表达式的 `[]` 变成 `()`
+- 列表表达式的 `[]` 变成 `()` 
 
-  `g = (x * x for x in range(10))` 之后用 `for` 把它 `print` 出来
+   `g = (x * x for x in range(10))` 之后用 `for` 把它 `print` 出来
 
 - 函数包含 `field` 关键字
 
@@ -445,17 +445,17 @@ for k,v in d.items():
 
 可用于 `for` 循环的数据类型有:
 
-一类是集合数据类型, 如 `list` , `tuple` , `dic` , `set` , `str`
+一类是集合数据类型, 如 `list` , `tuple` , `dic` , `set` , `str` 
 
-一类是生成器, `generator` 和 `generator function`
+一类是生成器, `generator` 和 `generator function` 
 
-他们统称为可迭代对象 `Iterable`
+他们统称为可迭代对象 `Iterable` 
 
 
 
-可以使用 `next()` 的都是迭代器 `Iterator`
+可以使用 `next()` 的都是迭代器 `Iterator` 
 
-`generator` 是迭代器
+ `generator` 是迭代器
 
 可以使用 `iter()` 把 `Iterable` 变成 `Iterator` 类型
 
@@ -495,9 +495,9 @@ def add(x, y, f):
     return f(x) + f(y)
 ```
 
-- `map` 和 `reduce` 函数
+-  `map` 和 `reduce` 函数
 
-  `map` 函数接收两个参数, 一个是函数, 一个是 `Iterable` , `map()` 将传入函数一次作用到序列的每个元素, 并作为新的 `Iterator` 返回
+   `map` 函数接收两个参数, 一个是函数, 一个是 `Iterable` , `map()` 将传入函数一次作用到序列的每个元素, 并作为新的 `Iterator` 返回
 
   ```python
   def f(x):
@@ -516,11 +516,11 @@ def add(x, y, f):
   reduce(add, [1, 3, 5, 7, 9])	# 25
   ```
 
-- `filter()` 函数
+-  `filter()` 函数
 
   接收一个函数一个序列, `filter()` 把传入的函数依次作用于每个元素, 然后根据返回值是 `True` 或者 `False` 决定是删除还是保留元素
 
-  返回值是一个 `Iterator`
+  返回值是一个 `Iterator` 
 
   ```python
   # 使用filter函数筛选回数
@@ -541,7 +541,7 @@ def add(x, y, f):
   print (list(re))
   ```
 
-- `sorted` 函数
+-  `sorted` 函数
 
   可以对 `List` 进行排序, 需要给一个 `key` 关键字
 
@@ -581,11 +581,11 @@ list(map(lambda x: x * x, [1, 2, 3, 4, 5]))
 
 希望增加函数功能, 又不希望修改函数的定义
 
-在代码运行期间动态增加功能的方式, 称之为**装饰器**  `Decorator`
+在代码运行期间动态增加功能的方式, 称之为**装饰器**  `Decorator` 
 
 和设计模式有想通之处
 
-注意, 返回值的`()`
+注意, 返回值的 `()` 
 
 ```python
 def log(func):
@@ -687,7 +687,7 @@ if __name__ == '__main__':	# ????
     test()
 ```
 
-只希望在模块内部使用的变量和函数(私有变量), 通常使用前缀 `_`
+只希望在模块内部使用的变量和函数(私有变量), 通常使用前缀 `_` 
 
 虽然 `python` 并不会阻止你直接在模块外调用私有变量和函数
 
@@ -740,7 +740,7 @@ class Student(object):
 
 但其实使用双下划线也可以在外部访问
 
-`_<ClassName>__<VariableName>`
+ `_<ClassName>__<VariableName>` 
 
 所以靠自觉
 
@@ -802,13 +802,13 @@ class Student:
     __slots__ = ('name', 'age') # tuple
 ```
 
-`__slots__` 仅对当前的类有效, 对子类没有限制效果
+ `__slots__` 仅对当前的类有效, 对子类没有限制效果
 
 
 
 ### 6.2 使用 `@property`
 
-`@property` 本质是装饰器 `decorator` , 负责把一个方法变成属性调用
+ `@property` 本质是装饰器 `decorator` , 负责把一个方法变成属性调用
 
 ```python
 class Student(object):
@@ -826,7 +826,7 @@ class Student(object):
 
 ### 6.3 多重继承
 
-`MixIn` 的设计模式
+ `MixIn` 的设计模式
 
 
 
@@ -834,7 +834,7 @@ class Student(object):
 
 我们已经知道的是 `__init__()` , `__len__()` 
 
-其实还有 `__str__()` , `__iter__()` , `__repr__()` , `__getattr__()`
+其实还有 `__str__()` , `__iter__()` , `__repr__()` , `__getattr__()` 
 
 不赘述了, 太无聊了
 
@@ -861,9 +861,9 @@ class Weekday(Enum):
 
 ### 6.6 使用元类
 
-`type()` 不仅可以查看变量类型, 还可以动态地创建类
+ `type()` 不仅可以查看变量类型, 还可以动态地创建类
 
-`metaclass` 元类
+ `metaclass` 元类
 
 先定义 `metaclass` , 就可以创建类, 最后创建实例
 

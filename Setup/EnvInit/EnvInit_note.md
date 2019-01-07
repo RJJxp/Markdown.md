@@ -234,17 +234,29 @@ sudo make install
 - 编译安装
 
   ```cmake
-  # 如果命令不能自动补全
-  # 使用 sudo chmod 777 <filename> 赋予权限
+  # 官网编译安装方式 rviz在使用的时候会出问题
+  # 找到的原因是Protobuf的编译方式有问题
+  # 可能是某些不必要的库影响了rviz的某功能
   
-  # 进行此步是为了./configure可行
-  ./autogen.sh 
-  # 可在后面加入 --prefix 来设置安装路径
-  ./configure --prefix=<YourInstallPath>
-  make
-  make check	# 时间紧迫就不要check了
-  sudo make install
-  sudo ldconfig	# refresh shared library cache.
+  # # 如果命令不能自动补全
+  # # 使用 sudo chmod 777 <filename> 赋予权限
+  
+  # # 进行此步是为了./configure可行
+  # ./autogen.sh 
+  # # 可在后面加入 --prefix 来设置安装路径
+  # ./configure --prefix=<YourInstallPath>
+  # make
+  # make check	# 时间紧迫就不要check了
+  # sudo make install
+  # sudo ldconfig	# refresh shared library cache.
+  
+  
+  # 使用cmake更加可控
+  # 在此编译方式更加适合项目
+  mkdir install
+  cmake ../cmake/ -DCMAKE_BUILD_TYPE=Release -Dprotobuf_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=<YourInstallPath>
+  make 
+  make install
   ```
 
   所遇到问题 `make check` 步骤出现错误
