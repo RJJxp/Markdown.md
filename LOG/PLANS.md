@@ -8,7 +8,7 @@ hope finished them before my undergraduate
 
 - [x] read cpp style by google
 - [x] zsm oop rewrite  by C++ oop dp
-- [ ] can_bus socket can
+- [ ] can_bus socket can <font color=red>STOP</font>
 - [x] infrared coding
 - [ ] whb computer graphics
 - [x] ros launch file
