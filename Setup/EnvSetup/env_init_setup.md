@@ -44,7 +44,7 @@ Ubuntu 1604 LTS极易安装, 只进行 [2.配置Raccoon工作环境](#2.配置Ra
 
 ### 1.3 烧制系统
 
-使用x3399官网给的[百度网盘链接](https://pan.baidu.com/s/1dGsrPKH) 密码 ryim
+使用x3399官网给的 [百度网盘链接](https://pan.baidu.com/s/1dGsrPKH) 密码 ryim
 
 目录 `DVD_X3399/tools/x3399烧写工具/linux` 
 
