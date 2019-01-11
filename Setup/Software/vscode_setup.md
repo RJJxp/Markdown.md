@@ -18,7 +18,6 @@
 ```json
 {
     "latex-workshop.view.pdf.viewer": "tab",
-    "workbench.colorTheme": "Monokai",
     "files.autoSave": "onFocusChange",
     "latex-workshop.latex.tools": [
         {

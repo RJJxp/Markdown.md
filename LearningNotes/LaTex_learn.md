@@ -130,7 +130,35 @@ So recommend to use command `\lq` representing left single quotes, and  `\rq` re
 
 #### 1.2-3 Dashes
 
-single dash `-` produces a hyphen, two dashes `--` produce a longer dash, three dashes `---` produce the longest dash
+single dash `-` produces a hyphen, two dashes `--` produce a longer dash, three dashes `---` produce the longest dash.
+
+#### 1.2-4 Accents(skip)
+
+#### 1.2-5 Special symbols
+
+use symbol `\` to indicate the program that what follows should not be typeset,
+
+but an instruction to be carried out.
+
+if you want to type `\` , use `\textbackslash` 
+
+use `%` symbol to make comment, which means what behind `%` will not be typeset.
+
+if you want to type `%` , use `\%` .
+
+Here are 10 symbols like `%` or `\` , if you want type any of them, preceding them with a `\` ,
+
+with 3 exception below.
+
+ `~` , `#` , `%` , `^` , `&` , `_` , `\` , `{` , `}` 
+
+ `~` : `\textasciitilde` 
+
+ `^` : `\textasciicircum` 
+
+ `\` : `\textbackslash`
+
+
 
 ## 2. The Document
 
