@@ -16,6 +16,8 @@ Ubuntu 1604 LTS极易安装, 只进行 [2.配置Raccoon工作环境](#2.配置Ra
 
 <font color=red>**在基于arm64架构的机器X3399上配置Ubuntu 1604 LTS**</font>
 
+ [X3399淘宝地址](https://item.taobao.com/item.htm?spm=a1z10.1-c.w5003-16763120850.1.2075158ezDbJeZ&id=544731661336&scene=taobao_shop) 仔细阅读, 其中资料比较详细
+
 下载镜像, 熟悉烧盘软件的使用, 烧盘
 
 烧盘选择向内部的存储器烧制, 而不是tf卡
