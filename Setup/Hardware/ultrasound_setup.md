@@ -14,6 +14,12 @@ CAN 口无法直接插在电脑上, 需要 CAN 转 USB 的设备
 
 如果超声波的数据成功经过设备发出, 对应 CAN 口的灯会亮
 
+注意: 从其淘宝上的度盘链接开发库只有 x64, x86的库
+
+而没有 arm 架构的库:
+
+链接：https://pan.baidu.com/s/1DEujrBr4lmMsuVnmbY2QQA 
+提取码：nn2n 
 
 
 ## 程序
