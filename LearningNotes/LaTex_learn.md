@@ -130,27 +130,27 @@ So recommend to use command `\lq` representing left single quotes, and  `\rq` re
 
 #### 1.2-3 Dashes
 
-single dash `-` produces a hyphen, two dashes `--` produce a longer dash, three dashes `---` produce the longest dash.
+Single dash `-` produces a hyphen, two dashes `--` produce a longer dash, three dashes `---` produce the longest dash.
 
 #### 1.2-4 Accents(skip)
 
 #### 1.2-5 Special symbols
 
-use symbol `\` to indicate the program that what follows should not be typeset,
+Use symbol `\` to indicate the program that what follows should not be typeset,
 
 but an instruction to be carried out.
 
-if you want to type `\` , use `\textbackslash` 
+If you want to type `\` , use `\textbackslash` 
 
-use `%` symbol to make comment, which means what behind `%` will not be typeset.
+Use `%` symbol to make comment, which means what behind `%` will not be typeset.
 
-if you want to type `%` , use `\%` .
+If you want to type `%` , use `\%` .
 
 Here are 10 symbols like `%` or `\` , if you want type any of them, preceding them with a `\` ,
 
-with 3 exception below.
-
  `~` , `#` , `%` , `^` , `&` , `_` , `\` , `{` , `}` 
+
+with 3 exception below.
 
  `~` : `\textasciitilde` 
 
@@ -158,7 +158,42 @@ with 3 exception below.
 
  `\` : `\textbackslash`
 
+Because `\\` used to break lines, also we can give a optional parameter to increase the distance between the lines. For example:
 
+ `This is the first line.\\[10pt] This is the second line.` 
+
+#### 1.2-6 Text positioning
+
+suppose you wanna type something like:
+
+![pic04](pic/LaTexLearning/chapter01/04.png)
+
+This is produced by 
+
+```latex
+% text between `begin` and `end` is aligned in the middle of page
+\begin{center} 
+The \TeX nical Institute\\[0.75cm]
+Certificate
+\end{center}
+% no indent
+\noindent This is to certify that Mr.N.O. Vice has undergone a course at this institute and is qualified to be a \TeX nicain.
+% typeset text flush with the right margin
+\begin{flushright}
+The Director\\
+The \TeX nical Institute
+\end{flushright}
+```
+
+These examples are an illustration of a LaTeX construct called **environment**, which is of the form like: `\begin{env_name} ... \end{env_name}` 
+
+### 1.3 Fonts
+
+The actual letters and symbols (collectively called **type**) that LaTeX produces are characterized by their **style** and **size**. A set of types of a particular style and size is called a **font**.
+
+#### 1.3-1 Type style
+
+In LaTeX, a type style is specified by **family**, **series** and **shape**. Any type in the output is a combination of these three characteristics.
 
 ## 2. The Document
 

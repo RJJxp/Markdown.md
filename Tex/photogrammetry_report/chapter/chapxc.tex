@@ -1,0 +1,805 @@
+\chapter{王雪辰个人实习报告}
+
+\section{数字内定向}
+
+\subsection{程序}
+
+\begin{lstlisting}[caption=get\_tmd\_dpj.m]
+function [xy_63dpj,xy_64dpj]=get_tmd_dpj(fpoint_dpj)
+xy_63dpj=xlsread(fpoint_dpj,'B3:C47')
+xy_64dpj=xlsread(fpoint_dpj,'D3:E47')
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=get\_tmd\_dzj.m]
+function [xy_63dzj,xy_64dzj]=get_tmd_dzj(fpoint_dzj)
+xy_63dzj=xlsread(fpoint_dzj,'B3:C47')
+xy_64dzj=xlsread(fpoint_dzj,'D3:E47')
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=get\_tmd\_xby.m]
+function [xy_63xby,xy_64xby]=get_tmd_xby(fpoint_xby)
+xy_63xby=[xlsread(fpoint_xby,'B3:B18'),xlsread(fpoint_xby,'C3:C18')]
+xy_64xby=[xlsread(fpoint_xby,'D3:D18'),xlsread(fpoint_xby,'E3:E18')]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=get\_tmd\_dlt.m]
+function [xy_63dlt,xy_64dlt]=get_tmd_dlt(fpoint_dlt)
+xy_63dlt=[xlsread(fpoint_dlt,'B3:B76'),xlsread(fpoint_dlt,'C3:C76')]
+xy_64dlt=[xlsread(fpoint_dlt,'D3:D76'),xlsread(fpoint_dlt,'E3:E76')]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=get\_tmd\_xz.m]
+function [xy_63xz,xy_64xz]=get_tmd_xz(fpoint_xz)
+xy_63xz=[xlsread(fpoint_xz,'B3:B37'),xlsread(fpoint_xz,'C3:C37')]
+xy_64xz=[xlsread(fpoint_xz,'D3:D37'),xlsread(fpoint_xz,'E3:E37')]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=inner\_orientation.m]
+function points_out=inner_orientation(a0,a1,a2,b0,b1,b2,points_in)
+para=[a0,b0;a1,b1;a2,b2]
+points_out=points_in*para
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=inner\_orientation\_for\_xby.m]
+function inner_orientation_for_xby()
+file='D:\大三下\摄影测量实习\Photogrammetry\camera.use'
+[a0,a1,a2,b0,b1,b2]=inner_orientation_para(file)
+fpoint_xby='D:\大三下\摄影测量实习\西北一.xlsx'
+[xy_63xby,xy_64xby]=get_tmd_xby(fpoint_xby)
+points_in63xby=[ones(length(xy_63xby),1),xy_63xby]
+points_in64xby=[ones(length(xy_64xby),1),xy_64xby]
+points_out63xby=inner_orientation(a0,a1,a2,b0,b1,b2,points_in63xby)
+points_out64xby=inner_orientation(a0,a1,a2,b0,b1,b2,points_in64xby)
+points_outxby=[points_out63xby,points_out64xby]
+fwrite_xby='D:\大三下\摄影测量实习\程序\数字内定向\西北一内定向点.xlsx'
+xlswrite(fwrite_xby,points_outxby)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=inner\_orientation\_for\_dlt.m]
+function inner_orientation_for_dlt()
+file='D:\大三下\摄影测量实习\Photogrammetry\camera.use'
+[a0,a1,a2,b0,b1,b2]=inner_orientation_para(file)
+fpoint_dlt='D:\大三下\摄影测量实习\大礼堂.xlsx'
+[xy_63dlt,xy_64dlt]=get_tmd_dlt(fpoint_dlt)
+points_in63dlt=[ones(length(xy_63dlt),1),xy_63dlt]
+points_in64dlt=[ones(length(xy_64dlt),1),xy_64dlt]
+points_out63dlt=inner_orientation(a0,a1,a2,b0,b1,b2,points_in63dlt)
+points_out64dlt=inner_orientation(a0,a1,a2,b0,b1,b2,points_in64dlt)
+points_outdlt=[points_out63dlt,points_out64dlt]
+fwrite_dlt='D:\大三下\摄影测量实习\程序\数字内定向\大礼堂内定向点.xlsx'
+xlswrite(fwrite_dlt,points_outdlt)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=run\_innerorientation.m]
+function [a0,a1,a2,b0,b1,b2]=run_innerorientation()
+file='D:\大三下\摄影测量实习\Photogrammetry\camera.use'
+[a0,a1,a2,b0,b1,b2]=inner_orientation_para(file)
+fpoint_xz='D:\大三下\摄影测量实习\程序\数字内定向\小组同名点.xlsx'
+fpoint_dzj='D:\大三下\摄影测量实习\程序\点之记 - 副本.xls'
+fpoint_dpj='D:\大三下\摄影测量实习\程序\点评价.xls'
+[xy_63xz,xy_64xz]=get_tmd_xz(fpoint_xz)
+[xy_63dzj,xy_64dzj]=get_tmd_dzj(fpoint_dzj)
+[xy_63dpj,xy_64dpj]=get_tmd_dpj(fpoint_dpj)
+points_in63xz=[ones(length(xy_63xz),1),xy_63xz]
+points_in63dzj=[ones(length(xy_63dzj),1),xy_63dzj]
+points_in63dpj=[ones(length(xy_63dpj),1),xy_63dpj]
+points_in64xz=[ones(length(xy_64xz),1),xy_64xz]
+points_in64dzj=[ones(length(xy_64dzj),1),xy_64dzj]
+points_in64dpj=[ones(length(xy_64dpj),1),xy_64dpj]
+points_out63xz=inner_orientation(a0,a1,a2,b0,b1,b2,points_in63xz)
+points_out64xz=inner_orientation(a0,a1,a2,b0,b1,b2,points_in64xz)
+points_out63dzj=inner_orientation(a0,a1,a2,b0,b1,b2,points_in63dzj)
+points_out64dzj=inner_orientation(a0,a1,a2,b0,b1,b2,points_in64dzj)
+points_out63dpj=inner_orientation(a0,a1,a2,b0,b1,b2,points_in63dpj)
+points_out64dpj=inner_orientation(a0,a1,a2,b0,b1,b2,points_in64dpj)
+points_outxz=[points_out63xz,points_out64xz]
+points_outdzj=[points_out63dzj,points_out64dzj]
+points_outdpj=[points_out63dpj,points_out64dpj]
+fwrite_xz='D:\大三下\摄影测量实习\程序\数字内定向\小组内定向点.xlsx'
+fwrite_dzj='D:\大三下\摄影测量实习\程序\数字内定向\点之记内定向点.xlsx'
+fwrite_dpj='D:\大三下\摄影测量实习\程序\数字内定向\点评价内定向点.xlsx'
+xlswrite(fwrite_xz,points_outxz)
+xlswrite(fwrite_dzj,points_outdzj)
+xlswrite(fwrite_dpj,points_outdpj)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=inner\_orientation\_para.m]
+function [a0,a1,a2,b0,b1,b2]=inner_orientation_para(file)
+f=fopen(file,'r')
+fgets(f)
+fgets(f)
+xy=[]
+for i=1:4
+    line=fgets(f)
+    ii=str2num(line(3:10))
+    jj=str2num(line(15:22))
+    insert=[ii,jj]
+    xy=[xy;insert]
+end
+A=[1,7679,13823;1,0,13823;1,0,0;1,7679,0]
+para=inv(A'*A)*A'*xy
+a0=para(1,1)
+a1=para(2,1)
+a2=para(3,1)
+b0=para(1,2)
+b1=para(2,2)
+b2=para(3,2)
+end   
+\end{lstlisting}
+
+\subsection{运行结果}
+
+\begin{figure}[htbp]
+\caption{运行结果}
+\centering
+\includegraphics[width=5cm]{result1.png}
+\end{figure}
+
+\section{单独像对相对定向}
+
+\subsection{程序}
+
+\begin{lstlisting}[caption=relative\_orientation.m]
+function [d_fai1,d_kapa1,d_omega2,d_fai2,d_kapa2]=relative_orientation(x1y1,x2y2,f,fai1_0,kapa1_0,fai2_0,omega2_0,kapa2_0)
+R0_1=R(fai1_0,0,kapa1_0)
+R0_2=R(fai2_0,omega2_0,kapa2_0)
+A=[]
+Q=[]
+fai1_1=0
+okapa1_1=0
+fai2_1=0
+omega2_1=0
+kapa2_1=0
+for i=1:length(x1y1)
+    x1=x1y1(i,1)
+    y1=x1y1(i,2)
+    [X1,Y1,Z1]=xyz_to_XYZ(R0_1,x1,y1,f)
+    x2=x2y2(i,1)
+    y2=x2y2(i,2)
+    [X2,Y2,Z2]=xyz_to_XYZ(R0_2,x2,y2,f)
+    ai=Ai(X1,Y1,X2,Y2,Z1,Z2)
+    A=[A;ai]
+    qi=Qi(f,Y1,Z1,Y2,Z2)
+    Q=[Q;qi]
+end
+adjust=inv(A'*A)*A'*Q
+d_fai1=adjust(1)
+d_kapa1=adjust(2)
+d_fai2=adjust(3)
+d_omega2=adjust(4)
+d_kapa2=adjust(5)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=relative\_orientation\_dlt.m]
+function relative_orientation_dlt()
+file_xz='D:\大三下\摄影测量实习\程序\数字内定向\小组内定向点.xlsx'
+file_dlt='D:\大三下\摄影测量实习\程序\数字内定向\大礼堂内定向点.xlsx'
+x1y1_xz=xlsread(file_xz,'A:B')
+x2y2_xz=xlsread(file_xz,'C:D')
+x1y1_dlt=xlsread(file_dlt,'A:B')
+x2y2_dlt=xlsread(file_dlt,'C:D')
+f=120
+[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1_xz,x2y2_xz,f)
+%[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1_dzj,x2y2_dzj,f)
+% fwrite='D:\大三下\摄影测量实习\程序\单独像对相对定向\相对定向参数.xlsx'
+% xlswrite(fwrite,[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t])
+X1Y1_xz=[]
+R1=R(fai1_t,0,kapa1_t)
+X2Y2_xz=[]
+R2=R(fai2_t,omega2_t,kapa2_t)
+X1Y1_dlt=[]
+%R1=R(fai1_t,0,kapa1_t)
+X2Y2_dlt=[]
+%R2=R(fai2_t,omega2_t,kapa2_t)
+for i=1:length(x1y1_xz)
+    x=x1y1_xz(i,1)
+    y=x1y1_xz(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_xz=[X1Y1_xz;[X,Y,Z]]
+end
+for i=1:length(x2y2_xz)
+    x=x2y2_xz(i,1)
+    y=x2y2_xz(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_xz=[X2Y2_xz;[X,Y,Z]]
+end    
+for i=1:length(x1y1_dlt)
+    x=x1y1_dlt(i,1)
+    y=x1y1_dlt(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_dlt=[X1Y1_dlt;[X,Y,Z]]
+end
+for i=1:length(x2y2_dlt)
+    x=x2y2_dlt(i,1)
+    y=x2y2_dlt(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_dlt=[X2Y2_dlt;[X,Y,Z]]
+end    
+XY_xz=[X1Y1_xz,X2Y2_xz]
+XY_dlt=[X1Y1_dlt,X2Y2_dlt]
+%ffinal_xz='D:\大三下\摄影测量实习\程序\单独像对相对定向\小组相对定向后的坐标.xlsx'
+ffinal_dlt='D:\大三下\摄影测量实习\程序\单独像对相对定向\大礼堂相对定向后的坐标.xlsx'
+%xlswrite(ffinal_xz,XY_xz)
+xlswrite(ffinal_dlt,XY_dlt)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=relative\_orientation\_xby.m]
+function relative_orientation_xby()
+file_xz='D:\大三下\摄影测量实习\程序\数字内定向\小组内定向点.xlsx'
+file_dlt='D:\大三下\摄影测量实习\程序\数字内定向\西北一内定向点.xlsx'
+x1y1_xz=xlsread(file_xz,'A:B')
+x2y2_xz=xlsread(file_xz,'C:D')
+x1y1_xby=xlsread(file_dlt,'A:B')
+x2y2_xby=xlsread(file_dlt,'C:D')
+f=120
+[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1_xz,x2y2_xz,f)
+%[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1_dzj,x2y2_dzj,f)
+% fwrite='D:\大三下\摄影测量实习\程序\单独像对相对定向\相对定向参数.xlsx'
+% xlswrite(fwrite,[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t])
+X1Y1_xz=[]
+R1=R(fai1_t,0,kapa1_t)
+X2Y2_xz=[]
+R2=R(fai2_t,omega2_t,kapa2_t)
+X1Y1_xby=[]
+%R1=R(fai1_t,0,kapa1_t)
+X2Y2_xby=[]
+%R2=R(fai2_t,omega2_t,kapa2_t)
+for i=1:length(x1y1_xz)
+    x=x1y1_xz(i,1)
+    y=x1y1_xz(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_xz=[X1Y1_xz;[X,Y,Z]]
+end
+for i=1:length(x2y2_xz)
+    x=x2y2_xz(i,1)
+    y=x2y2_xz(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_xz=[X2Y2_xz;[X,Y,Z]]
+end    
+for i=1:length(x1y1_xby)
+    x=x1y1_xby(i,1)
+    y=x1y1_xby(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_xby=[X1Y1_xby;[X,Y,Z]]
+end
+for i=1:length(x2y2_xby)
+    x=x2y2_xby(i,1)
+    y=x2y2_xby(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_xby=[X2Y2_xby;[X,Y,Z]]
+end    
+XY_xz=[X1Y1_xz,X2Y2_xz]
+XY_xby=[X1Y1_xby,X2Y2_xby]
+%ffinal_xz='D:\大三下\摄影测量实习\程序\单独像对相对定向\小组相对定向后的坐标.xlsx'
+ffinal_xby='D:\大三下\摄影测量实习\程序\单独像对相对定向\西北一相对定向后的坐标.xlsx'
+%xlswrite(ffinal_xz,XY_xz)
+xlswrite(ffinal_xby,XY_xby)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=relative\_orientation\_procedure.m]
+function relative_orientation_procedure()
+file_xz='D:\大三下\摄影测量实习\程序\数字内定向\小组内定向点.xlsx'
+file_dzj='D:\大三下\摄影测量实习\程序\数字内定向\点之记内定向点.xlsx'
+file_dpj='D:\大三下\摄影测量实习\程序\数字内定向\点评价内定向点.xlsx'
+x1y1_xz=xlsread(file_xz,'A:B')
+x2y2_xz=xlsread(file_xz,'C:D')
+x1y1_dzj=xlsread(file_dzj,'A:B')
+x2y2_dzj=xlsread(file_dzj,'C:D')
+x1y1_dpj=xlsread(file_dpj,'A:B')
+x2y2_dpj=xlsread(file_dpj,'C:D')
+f=120
+[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1_xz,x2y2_xz,f)
+%[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1_dzj,x2y2_dzj,f)
+% fwrite='D:\大三下\摄影测量实习\程序\单独像对相对定向\相对定向参数.xlsx'
+% xlswrite(fwrite,[fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t])
+X1Y1_xz=[]
+R1=R(fai1_t,0,kapa1_t)
+X2Y2_xz=[]
+R2=R(fai2_t,omega2_t,kapa2_t)
+X1Y1_dzj=[]
+%R1=R(fai1_t,0,kapa1_t) 
+X2Y2_dzj=[]
+%R2=R(fai2_t,omega2_t,kapa2_t)
+X1Y1_dpj=[]
+X2Y2_dpj=[]
+for i=1:length(x1y1_xz)
+    x=x1y1_xz(i,1)
+    y=x1y1_xz(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_xz=[X1Y1_xz;[X,Y,Z]]
+end
+for i=1:length(x2y2_xz)
+    x=x2y2_xz(i,1)
+    y=x2y2_xz(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_xz=[X2Y2_xz;[X,Y,Z]]
+end    
+for i=1:length(x1y1_dzj)
+    x=x1y1_dzj(i,1)
+    y=x1y1_dzj(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_dzj=[X1Y1_dzj;[X,Y,Z]]
+end
+for i=1:length(x2y2_dzj)
+    x=x2y2_dzj(i,1)
+    y=x2y2_dzj(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_dzj=[X2Y2_dzj;[X,Y,Z]]
+end    
+for i=1:length(x1y1_dpj)
+    x=x1y1_dpj(i,1)
+    y=x1y1_dpj(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R1,x,y,f)
+    X1Y1_dpj=[X1Y1_dpj;[X,Y,Z]]
+end
+for i=1:length(x2y2_dpj)
+    x=x2y2_dpj(i,1)
+    y=x2y2_dpj(i,2)
+    [X,Y,Z]=xyz_to_XYZ(R2,x,y,f)
+    X2Y2_dpj=[X2Y2_dpj;[X,Y,Z]]
+end    
+XY_xz=[X1Y1_xz,X2Y2_xz]
+XY_dzj=[X1Y1_dzj,X2Y2_dzj]
+XY_dpj=[X1Y1_dpj,X2Y2_dpj]
+ffinal_xz='D:\大三下\摄影测量实习\程序\单独像对相对定向\小组相对定向后的坐标.xlsx'
+ffinal_dzj='D:\大三下\摄影测量实习\程序\单独像对相对定向\点之记相对定向后的坐标.xlsx'
+ffinal_dpj='D:\大三下\摄影测量实习\程序\单独像对相对定向\点评价相对定向后的坐标.xlsx'
+xlswrite(ffinal_xz,XY_xz)
+xlswrite(ffinal_dzj,XY_dzj)
+xlswrite(ffinal_dpj,XY_dpj)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Ai.m]
+function A=Ai(X1,Y1,X2,Y2,Z1,Z2)
+a_fai1=-1*X1*Y2/Z1
+a_kapa1=X1
+a_fai2=X2*Y1/Z1
+a_omega2=Z1+Y1*Y2/Z1
+a_kapa2=-1*X2
+A=[a_fai1,a_kapa1,a_fai2,a_omega2,a_kapa2]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=R.m]
+function R=R(fai,omega,kapa)
+Rfai=[cos(fai),0,-sin(fai);0,1,0;sin(fai),0,cos(fai)]
+Romega=[1,0,0;0,cos(omega),-sin(omega);0,sin(omega),cos(omega)]
+Rkapa=[cos(kapa),-sin(kapa),0;sin(kapa),cos(kapa),0;0,0,1]
+R=Rfai*Romega*Rkapa
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Qi.m]
+function q=Qi(f,Y1,Z1,Y2,Z2)
+q=f*(Y1/Z1-Y2/Z2)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=iterate\_for\_adjustment.m]
+function [fai1_t,kapa1_t,fai2_t,omega2_t,kapa2_t]=iterate_for_adjustment(x1y1,x2y2,f)
+fai1=0
+kapa1=0
+fai2=0
+omega2=0
+kapa2=0
+n=0
+[d_fai1,d_kapa1,d_omega2,d_fai2,d_kapa2]=relative_orientation(x1y1,x2y2,f,fai1,kapa1,fai2,omega2,kapa2)
+while d_fai1>=0.00003 | d_kapa1>=0.00003 | d_omega2>=0.00003 | d_fai2>=0.00003 | d_kapa2>=0.00003
+    n=n+1
+    fai1=fai1+d_fai1
+    kapa1=kapa1+d_kapa1
+    fai2=fai2+d_fai2
+    omega2=omega2+d_omega2
+    kapa2=kapa2+d_kapa2
+    [d_fai1,d_kapa1,d_omega2,d_fai2,d_kapa2]=relative_orientation(x1y1,x2y2,f,fai1,kapa1,fai2,omega2,kapa2)
+end
+fai1_t=fai1
+kapa1_t=kapa1
+fai2_t=fai2
+omega2_t=omega2
+kapa2_t=kapa2
+end    
+\end{lstlisting}
+
+\subsection{运行结果}
+
+\begin{figure}[htbp]
+\caption{运行结果}
+\centering
+\includegraphics[width=5cm]{result2.png} \\
+\includegraphics[width=5cm]{result3.png}
+\end{figure}
+
+\section{前方交会}
+
+\subsection{程序}
+
+\begin{lstlisting}[caption=run\_forward\_intersection.m]
+function run_forward_intersection()
+fwritexz='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\小组模型坐标.xlsx'
+fwritedzj='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\点之记模型坐标.xlsx'
+fwritedpj='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\点评价模型坐标.xlsx'
+M=(7680*0.2)/(46.08*2)
+l=46.08*2
+p=0.6
+B=l*(1-p)*M
+freadxz='D:\大三下\摄影测量实习\程序\单独像对相对定向\小组相对定向后的坐标.xlsx'
+freaddzj='D:\大三下\摄影测量实习\程序\单独像对相对定向\点之记相对定向后的坐标.xlsx'
+freaddpj='D:\大三下\摄影测量实习\程序\单独像对相对定向\点评价相对定向后的坐标.xlsx'
+X1_xz=xlsread(freadxz,'A:A')
+X1_dzj=xlsread(freaddzj,'A:A')
+X1_dpj=xlsread(freaddpj,'A:A')
+Y1_xz=xlsread(freadxz,'B:B')
+Y1_dzj=xlsread(freaddzj,'B:B')
+Y1_dpj=xlsread(freaddpj,'B:B')
+Z1_xz=xlsread(freadxz,'C:C')
+Z1_dzj=xlsread(freaddzj,'C:C')
+Z1_dpj=xlsread(freaddpj,'C:C')
+X2_xz=xlsread(freadxz,'D:D')
+X2_dzj=xlsread(freaddzj,'D:D')
+X2_dpj=xlsread(freaddpj,'D:D')
+Y2_xz=xlsread(freadxz,'E:E')
+Y2_dzj=xlsread(freaddzj,'E:E')
+Y2_dpj=xlsread(freaddpj,'E:E')
+Z2_xz=xlsread(freadxz,'F:F')
+Z2_dzj=xlsread(freaddzj,'F:F')
+Z2_dpj=xlsread(freaddpj,'F:F')
+XYZQ_xz=forward_intersection(B,X1_xz,Y1_xz,Z1_xz,X2_xz,Y2_xz,Z2_xz)
+XYZQ_dzj=forward_intersection(B,X1_dzj,Y1_dzj,Z1_dzj,X2_dzj,Y2_dzj,Z2_dzj)
+XYZQ_dpj=forward_intersection(B,X1_dpj,Y1_dpj,Z1_dpj,X2_dpj,Y2_dpj,Z2_dpj)
+xlswrite(fwritexz,XYZQ_xz)
+xlswrite(fwritedzj,XYZQ_dzj)
+xlswrite(fwritedpj,XYZQ_dpj)
+end 
+\end{lstlisting}
+
+\begin{lstlisting}[caption=forward\_intersection.m]
+function XYZQ=forward_intesection(B,X1,Y1,Z1,X2,Y2,Z2)
+%M为比例尺
+%l为像片长度
+%p为航向重叠度
+Bx=B
+By=0
+Bz=0
+Xs1=0
+Ys1=0
+Zs1=0
+Xs2=Bx
+Ys2=0
+Zs2=0
+N1=(Bx.*Z2-Bz.*X2)./(X1.*Z2-Z1.*X2)
+N2=(Bx.*Z1-Bz.*X1)./(X1.*Z2-Z1.*X2)
+X=Xs1+N1.*X1
+Y=0.5*(Ys1+N1.*Y1+N2.*Y2+Ys2)
+Z=Zs1+N1.*Z1
+Q=N1.*Y1-N2.*Y2-By
+XYZQ=[X,Y,Z,Q]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=forward\_intersection\_xby.m]
+function forward_intersection_xby()
+fwritexby='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\西北一模型坐标.xlsx'
+M=(7680*0.2)/(46.08*2)
+l=46.08*2
+p=0.6
+B=l*(1-p)*M
+freaddlt='D:\大三下\摄影测量实习\程序\单独像对相对定向\西北一相对定向后的坐标.xlsx'
+X1_xby=xlsread(freaddlt,'A:A')
+Y1_xby=xlsread(freaddlt,'B:B')
+Z1_xby=xlsread(freaddlt,'C:C')
+X2_xby=xlsread(freaddlt,'D:D')
+Y2_xby=xlsread(freaddlt,'E:E')
+Z2_xby=xlsread(freaddlt,'F:F')
+XYZQ_xby=forward_intersection(B,X1_xby,Y1_xby,Z1_xby,X2_xby,Y2_xby,Z2_xby)
+xlswrite(fwritexby,XYZQ_xby)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=forward\_intersection\_dlt.m]
+function forward_intersection_dlt()
+fwritedlt='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\大礼堂模型坐标.xlsx'
+M=(7680*0.2)/(46.08*2)
+l=46.08*2
+p=0.6
+B=l*(1-p)*M
+freaddlt='D:\大三下\摄影测量实习\程序\单独像对相对定向\大礼堂相对定向后的坐标.xlsx'
+X1_dlt=xlsread(freaddlt,'A:A')
+Y1_dlt=xlsread(freaddlt,'B:B')
+Z1_dlt=xlsread(freaddlt,'C:C')
+X2_dlt=xlsread(freaddlt,'D:D')
+Y2_dlt=xlsread(freaddlt,'E:E')
+Z2_dlt=xlsread(freaddlt,'F:F')
+XYZQ_dlt=forward_intersection(B,X1_dlt,Y1_dlt,Z1_dlt,X2_dlt,Y2_dlt,Z2_dlt)
+xlswrite(fwritedlt,XYZQ_dlt)
+end
+\end{lstlisting}
+
+\subsection{运行结果}
+
+运行结果见Excel文档。
+
+\section{绝对定向（布尔沙模型）}
+
+\subsection{程序}
+
+\begin{lstlisting}[caption=absolute\_orientation\_dlt.m]
+function absolute_orientation_dlt()
+fmodeldlt='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\大礼堂模型坐标.xlsx'
+fmodeldzj='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\点之记模型坐标.xlsx'
+XYZ_modeldlt=xlsread(fmodeldlt,'A:C')
+XYZ_modeldzj=xlsread(fmodeldzj,'A:C')
+fcontrol='D:\大三下\摄影测量实习\程序\点之记 - 副本.xls'
+XYZ_control=get_XYZ_control(fcontrol)
+[dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt]=iterate_absolute_orientation(XYZ_modeldzj,XYZ_control,0,0,0,0,0,0,0)
+fwritedlt='D:\大三下\摄影测量实习\程序\绝对定向\大礼堂绝对定向结果.xls'
+fwritedzj='D:\大三下\摄影测量实习\程序\绝对定向\点之记绝对定向结果.xls'
+XYZ_transtdlt=trans_points(XYZ_modeldlt,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+XYZ_transtdzj=trans_points(XYZ_modeldzj,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+xlswrite(fwritedlt,XYZ_transtdlt)
+%xlswrite(fwritedzj,[XYZ_transtdzj ,XYZ_control])
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=absolute\_orientation\_xby.m]
+function absolute_orientation_xby()
+fmodelxby='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\西北一模型坐标.xlsx'
+fmodeldzj='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\点之记模型坐标.xls'
+XYZ_modelxby=xlsread(fmodelxby,'A:C')
+XYZ_modeldzj=xlsread(fmodeldzj,'A:C')
+fcontrol='D:\大三下\摄影测量实习\程序\点之记 - 副本.xls'
+XYZ_control=get_XYZ_control(fcontrol)
+[dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt]=iterate_absolute_orientation(XYZ_modeldzj,XYZ_control,0,0,0,0,0,0,0)
+fwritexby='D:\大三下\摄影测量实习\程序\绝对定向\西北一绝对定向结果.xls'
+fwritedzj='D:\大三下\摄影测量实习\程序\绝对定向\点之记绝对定向结果.xls'
+XYZ_transtxby=trans_points(XYZ_modelxby,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+XYZ_transtdzj=trans_points(XYZ_modeldzj,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+xlswrite(fwritexby,XYZ_transtxby)
+%xlswrite(fwritedzj,[XYZ_transtdzj ,XYZ_control])
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Ai\_a.m]
+function Aia=Ai_a(xyz_model)
+x=xyz_model(1)
+y=xyz_model(2)
+z=xyz_model(3)
+Aia=[1,0,0,x,0,-z,y;0,1,0,y,z,0,-x;0,0,1,z,-y,x,0]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Li\_a.m]
+function Lia=Li_a(xyz_model,xyz_control,dlamda,Repsi,dX,dY,dZ)
+Lia=xyz_control-(1+dlamda)*Repsi*xyz_model-[dX;dY;dZ]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=R\_epsi.m]
+function Repsi=R_epsi(epsi_x,epsi_y,epsi_z)
+Repsi_z=[cos(epsi_z),sin(epsi_z),0;-sin(epsi_z),cos(epsi_z),0;0,0,1]
+Repsi_y=[cos(epsi_y),0,-sin(epsi_y);0,1,0;sin(epsi_y),0,cos(epsi_y)]
+Repsi_x=[1,0,0;0,cos(epsi_x),sin(epsi_x);0,-sin(epsi_x),cos(epsi_x)]
+Repsi=Repsi_z*Repsi_y*Repsi_x
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=get\_XYZ\_control.m]
+function XYZ_control=get_XYZ_control(fcontrol)
+X_control=xlsread(fcontrol,'F3:F47')
+Y_control=xlsread(fcontrol,'G3:G47')
+Z_control=xlsread(fcontrol,'H3:H47')
+XYZ_control=[X_control,Y_control,Z_control]
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=get\_XYZ\_model.m]
+function XYZ_model=get_XYZ_model(fmodel)
+XYZ_model=xlsread(fmodel,'A:C')
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=run\_absolute\_orientation.m]
+function run_absolute_orientation()
+fmodelxz='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\小组模型坐标.xlsx'
+fmodeldzj='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\点之记模型坐标.xlsx'
+fmodeldpj='D:\大三下\摄影测量实习\程序\前方交会求模型坐标\点评价模型坐标.xlsx'
+XYZ_modelxz=xlsread(fmodelxz,'A:C')
+XYZ_modeldzj=xlsread(fmodeldzj,'A:C')
+XYZ_modeldpj=xlsread(fmodeldpj,'A:C')
+fcontrol='D:\大三下\摄影测量实习\程序\点之记 - 副本.xls'
+fcontrol_dpj='D:\大三下\摄影测量实习\程序\点评价.xls'
+XYZ_control=get_XYZ_control(fcontrol)
+XYZ_control_dpj=get_XYZ_control(fcontrol_dpj)
+[dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt]=iterate_absolute_orientation
+(XYZ_modeldzj,XYZ_control,0,0,0,0,0,0,0)
+fwritexz='D:\大三下\摄影测量实习\程序\绝对定向\小组绝对定向结果.xlsx'
+fwritedzj='D:\大三下\摄影测量实习\程序\绝对定向\点之记绝对定向结果.xlsx'
+fwritedpj='D:\大三下\摄影测量实习\程序\绝对定向\点评价绝对定向结果.xlsx'
+XYZ_transtxz=trans_points(XYZ_modelxz,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+XYZ_transtdzj=trans_points(XYZ_modeldzj,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+XYZ_transtdpj=trans_points(XYZ_modeldpj,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+xlswrite(fwritexz,XYZ_transtxz)
+xlswrite(fwritedzj,[XYZ_transtdzj ,XYZ_control])
+xlswrite(fwritedpj,[XYZ_transtdpj ,XYZ_control_dpj])
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=iterate\_absolute\_orientation.m]
+function [dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt]=iterate_absolute_orientation(XYZ_model,XYZ_control,dX0,dY0,dZ0,dlamda0,epsi_x0,epsi_y0,epsi_z0)
+dX=dX0
+dY=dY0
+dZ=dZ0
+dlamda=dlamda0
+epsi_x=epsi_x0
+epsi_y=epsi_y0
+epsi_z=epsi_z0
+limit=10^(-6)
+[d_dX,d_dY,d_dZ,d_dlamda,d_epsi_x,d_epsi_y,d_epsi_z]=absolute_orientation
+(XYZ_model,XYZ_control,dlamda,epsi_x,epsi_y,epsi_z,dX,dY,dZ)
+while abs(d_dX)>=0.1 | abs(d_dY)>=0.1 | abs(d_dZ)>=0.1 | abs(d_dlamda)>=limit | abs(d_epsi_x)>=limit | abs(d_epsi_y)>=limit | abs(d_epsi_z)>=limit
+    dX=dX+d_dX
+    dY=dY+d_dY
+    dZ=dZ+d_dZ
+    dlamda=dlamda+d_dlamda
+    epsi_x=epsi_x+d_epsi_x
+    epsi_y=epsi_y+d_epsi_y
+    epsi_z=epsi_z+d_epsi_z
+    [d_dX,d_dY,d_dZ,d_dlamda,d_epsi_x,d_epsi_y,d_epsi_z]=absolute_orientation
+    (XYZ_model,XYZ_control,dlamda,epsi_x,epsi_y,epsi_z,dX,dY,dZ)
+end
+dXt=dX+d_dX
+dYt=dY+d_dY
+dZt=dZ+d_dZ
+dlamdat=dlamda+d_dlamda
+epsi_xt=epsi_x+d_epsi_x
+epsi_yt=epsi_y+d_epsi_y
+epsi_zt=epsi_z+d_epsi_z
+end     
+\end{lstlisting}
+
+\begin{lstlisting}[caption=absolute\_orientation.m]
+function [d_dX,d_dY,d_dZ,d_dlamda,d_epsi_x,d_epsi_y,d_epsi_z]=absolute_orientation
+(XYZ_model,XYZ_control,dlamda,epsi_x,epsi_y,epsi_z,dX,dY,dZ)
+A=[]
+L=[]
+Repsi=R_epsi(epsi_x,epsi_y,epsi_z)
+for i=1:length(XYZ_model)
+    xyz_model=XYZ_model(i,:)
+    xyz_model=xyz_model'
+    xyz_control=XYZ_control(i,:)
+    xyz_control=xyz_control'
+    Lia=Li_a(xyz_model,xyz_control,dlamda,Repsi,dX,dY,dZ)
+    Aia=Ai_a(xyz_model)
+    L=[L;Lia]
+    A=[A;Aia]
+end
+d_para=inv(A'*A)*A'*L
+d_dX=d_para(1)
+d_dY=d_para(2)
+d_dZ=d_para(3)
+d_dlamda=d_para(4)
+d_epsi_x=d_para(5)
+d_epsi_y=d_para(6)
+d_epsi_z=d_para(7)
+end
+\end{lstlisting}
+
+\begin{lstlisting}[caption=trans\_points.m]
+function XYZ_transt=trans_points
+(XYZ_trans0,dXt,dYt,dZt,dlamdat,epsi_xt,epsi_yt,epsi_zt)
+Repsi=R_epsi(epsi_xt,epsi_yt,epsi_zt)
+XYZ_transt=[]
+for i=1:length(XYZ_trans0)
+    xyz_trans=XYZ_trans0(i,:)
+    xyz_trans=xyz_trans'
+    xyz_transt=[dXt;dYt;dZt]+(1+dlamdat)*Repsi*xyz_trans
+    xyz_transt=xyz_transt'
+    XYZ_transt=[XYZ_transt;xyz_transt]
+end
+end
+\end{lstlisting}
+
+此外，还有一个lsp展绘的程序：
+
+\begin{lstlisting}[language=Lisp,caption=cadzd.lsp]
+(defun c:cadzh()
+(setq file (getfiled "Select a file please" "D:/大三下/摄影测量实习/程序/CAD展绘/大礼堂绝对定向结果.txt" "txt" 0))
+(setq f (open file "r"))
+(setq line (read-line f))
+(command "pline")
+(while (/= line nil)
+    (setq seq1 (vl-string-search "\t" line))
+    (setq l1 (substr line (+ 2 seq1)))
+    (setq seq2 (vl-string-search "\t" l1))
+    (setq X (atof (substr line 1 seq1)))
+    (setq Y (atof (substr l1 1 seq2)))
+    (setq Z (atof (substr l1 (+ seq2 2))))
+    (command (list X Y))
+    (setq line (read-line f))
+    )
+(close  f)
+(command "c")
+(princ)
+)
+\end{lstlisting}
+
+\subsection{运行结果}
+
+\begin{figure}[htbp]
+\caption{运行结果}
+\centering
+\includegraphics[width=5cm]{result4.png}
+\end{figure}
+
+\section{调绘成果}
+
+调绘成果详见报告中，下面是两张截图。
+
+\begin{figure}[htbp]
+\centering
+\caption{调绘图概览}
+\includegraphics[width=0.7\textwidth]{diaohui.jpg}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\caption{调绘图细节}
+\includegraphics[width=0.7\textwidth]{diaohui1.jpg}
+\end{figure}
+
+\section{同名点}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lrrrr}
+        \toprule
+        & \multicolumn{2}{c}{63} & \multicolumn{2}{c}{64} \\ \hline
+        点号 & \multicolumn{1}{c}{i} & \multicolumn{1}{c}{j} & \multicolumn{1}{c}{i} & \multicolumn{1}{c}{j} \\ \midrule
+        8  & 6592 & 9831 & 3414 & 9487 \\
+        9  & 5442 & 9906 & 2229 & 9560 \\
+        10 & 5225 & 9518 & 2041 & 9176 \\
+        11 & 4613 & 9717 & 1318 & 9368 \\
+        12 & 6996 & 9145 & 3812 & 8813 \\
+        13 & 6184 & 8914 & 2901 & 8578 \\
+        14 & 5799 & 8440 & 2596 & 8110 \\ \bottomrule
+    \end{tabular}
+    \end{table}
+
+\section{摄影测量实习感悟}
+
+\subsubsection{一}
+在这为期半学期的摄影测量实习中，我们既体验了外业测量，又进行了内业数据处理，对摄影测量有了一个完整的了解，也对上学期学习的课本知识有了更加深刻的认识。
+
+\subsubsection{二}
+先说外业测量吧。最直观深刻的感受就是，如果不理解绝对定向的原理，连测控制点的时候都会犯错误。之前我们普通测量实习展点，对第三维的信息是没有要求的，所以我们并不太顾及高程测量。这次控制测量刚开始的阶段，我们只一心只想着相片是平面的，只有二维信息，也差点就不把高程测量当回事。这点也着实给我们提了个醒——在课程的学习中，我们可能因为一些原因，把更多的注意力放在了实现的公式上而没有太注意内定向、相对定向、前方交会、绝对定向之间的关联，这就给我们的应用带来了障碍，以至于忽略了像点到模型点的二维到三维转换过程。
+另外，控制测量的一大难度在于检查的过程。我们测区的大部分普通测量控制点都集中在同一个区域，如果不大量布设支导线的话，测量的摄影测量控制点都将是共线的。这样，再算上检查设站，测一个点的工作量就比较大了。
+
+\subsubsection{三}
+再者说到的就是内业工作了。上学期学的时候，我们就知道书上的公式推导是存在一些问题的，这次实习终于看到了较完整合理的推导。在编程的时候，我的绝对定向程序一开始怎么都不收敛，反复检查了好几次代码，都没发现有什么问题，为此还苦闷了一小段时间。后来和其他同学交流后才发现，我在做内定向的时候，框标的像素坐标系和PS中不对应，因此用算出来的内定向参数进行内定向得到的像平面坐标是不正确的。此外，我还被分配到了小组的CAD展绘工作，小组的另一位同学负责找同名点，我负责定向并勾画。我们选择的大礼堂，一共有70多对同名点，不得不感叹找同名点真的是一个浩大的工程。做完前方交会之后，发现有三个点的上下视差过大，我们便进行了调整，重新找点。我用Lisp写了一个简单的展点程序将绝对定向后的地面摄测坐标展绘出来，发现有两个点偏的有些厉害，其它点的位置都很好，于是，我们再次更正这两对同名点，再定向展绘。由此重复了好几个循环，我们终于做出了一副比较满意的展绘图。CAD展绘的过程让我对整个摄影测量实习有了更完整、具体的认识。
+
+\subsubsection{四}
+本次实习中，我们还体验了运用kinect进行场景三维建模。我们小组一共进行了两次模型数据采集，第一次是对一个同学进行采集，第二次是对桌面进行采集。第一次采集的效果很不好，因为没有经验加上太过于着急，采集数据的同学没能将人像采集完整。第二次桌面采集的效果相对而言还是比较不错的，采集后，我们还量测了电脑宽度等信息，与模型进行对比。
+
+\subsubsection{五}
+总之，这次实习让我对上学期的摄影测量知识有了更加深刻的理解。实践着实促进了我们对知识的学习。另外，我们摄影测量小组的同学们一起经历了暑期普通测量实习、控制测量，现在配合得也越来越默契了。
+
+
+
+
+
+
+
+

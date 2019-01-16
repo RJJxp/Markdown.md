@@ -1,0 +1,432 @@
+\chapter{余周炜个人实习报告}
+
+摄影测量实习是摄影测量的实践课程，本着“理论指导实践”的原则，在上学期学了摄影测量的理论与方法之后，在本学期进行了摄影测量实习，提高了我们对摄影测量知识的理解，加强了我们实际运用的能力。
+
+作为本摄影测量小组的组长，在本次摄影测量的实习过程中，承担了更大的责任，对实习的各个方面感触颇深，值得写在实习报告中，和大家分享交流。
+
+\section{实习经历}
+
+\subsubsection{一}
+本次实习的时长将近半个学期，将摄影测量的流程走了一遍。从像片控制测量，到相关测量程序的编写，再到CAD成图和航片的调绘和判读，从外业到内业，熟悉了摄影测量的全过程，增强了团队协作意识和编程能力。
+
+提到像片控制测量，我们组的进程不算快，但我力求让每个人都做一遍。任务的执行是这样的：先让一个人来测量他选定的像控点，如果两次测量的差异较大，即误差超限的情况，则此组员放弃他的测量，让下一个测量，他排到队尾，这样轮流测量，增加了大家控制质量的意识，同时强迫自己学习别人测量得又快又准的人的经验，也节省了时间。
+
+可能是因为结果不太好的缘故，我们组的几个同学在第二天进行了补测，将原来误差较大的点的坐标测得更加准确，体现了我们组一丝不苟的素质和精益求精的精神。
+
+通过外业的实习，我也向组员表明了我的态度：\emph{不以效率为最高目的，而是以质量、以理解和掌握水平为最高的追求目标。}
+
+
+\subsubsection{二}
+接下来就是编写程序，在编写程序刚刚开始的阶段，我们组的王雪辰同学向老师反映了任务书中程序的一处符号错误，但由于是迭代，程序依然收敛，我不知道最后的讨论结果如何，我认为可能会对迭代收敛的快慢有影响。
+
+
+既然任务书上的程序也有错误抑或是争议，这验证了我上学期向老师提出的观点。
+我在上学期已经向老师说明过她的这种推导方式极易发生错误，有时候是别人抄错了，有时候是自己想错了，自己想错了可以避免，抄错了这种情况却难以避免，在很多教材中各种各样的错误依然难以避免，所以理解原理是十分有必要的。我们不应该把这么重要的程序放在人的耐心和细心程度上，这种想法通常是不靠谱和极易发生错误的，而是应该把推导过程用计算机实现，例如用Matlab的符号变量，这样大家在推导公式的同时，也增强了对Matlab软件的理解和运用，符合信息时代的潮流。
+
+近些年来，线性代数与矩阵分析的知识发展迅猛，在熟练地使用矩阵这个工具之后，不仅降低了思维的难度，也将繁重的计算交给计算机来完成，实现了生产力的解放。然而，书中的方法在我看来依然是简单的迭代方法，虽然有矩阵的外形，但没有运用矩阵的实质，如矩阵求导、Jacobian行列式的知识没有运用到，Matlab中强大的符号计算也没有运用到。
+
+所以我没有采用实习任务书上的方法，我也不去验证任务书上的方法迭代效果如何。在上学期的摄影测量编程和本次摄影测量实习的编程过程中，我着重强调并实现了Gauss-Newton法，运用了Matlab符号变量和Matlab对矩阵的一些操作，此中的编程思想详见我编写的航测内业实习报告\ref{sec:neiye}部分和接下来我要贴的程序，我认为我已经讲得比较详细了，这里无需赘述。可以看出运用矩阵和符号变量的程序远比不用这些功能的程序简洁，这样，可以让我们站在一个更高的抽象层面来思考问题。
+
+编写的程序存在不收敛的问题，这种问题一般是同名点找的不好或有错误造成的，即初值的选取问题。对于这种情况，我们可以通过上下视差判断，将上下视差较大的点剔除，此种方法类似于粗差探测。将粗差找出来之后，再进行迭代，则可以使迭代收敛。另外，如果是程序编写的逻辑错误，则需耐心细致地检查。
+
+
+\subsubsection{三}
+
+接下来就是CAD成图、航片的调绘判读，和一些实验室的参观。
+
+对于调绘和相片判读部分，我强烈建议让这项工作由小组来完成。这项工作没有任何技术含量可言，需要的只是时间和一份难得的耐心，如果给小组分工，在加快进度的同时，也增强团队分工与协作意识，每个人单打独斗，实无必要，这样不仅是进行重复的劳动，也毫无效率可言。我也相信真实情况肯定不会是每个人都去调绘的。搞得上面说一套，下面做一套，也不好。
+
+另外，我们还练习使用了Kinect产品。Kinect是微软的一款体感游戏产品，也可以用作场景的三维建模。练习过程中，我们运用Kinect将桌子和椅子进行了三维建模，通过软件观察了建模的效果。之后，我们用钢尺量了电脑的宽度，和软件上的距离做了比较，发现还是有一些差别的，说明Kinect主要用作体感游戏的，并不适合较为精确的三维建模。
+
+
+\subsubsection{四}
+
+说到报告的撰写，是我提议用\LaTeX{}撰写的，这样做提高了排版的质量，表达了我们组的\emph{审美追求}。
+
+\LaTeX{}不同于Word这种所见即所得的软件，是一个所想即所得(What You Think Is What You Get, WYTIWTG)的开源排版软件，他的作者是鼎鼎大名的高德纳(Donald Ervin Knuth)先生，他是算法和程序设计技术的先驱者，计算机排版系统\TeX{}和\MF 的发明者，他因这些成就和大量创造性的影响深远的著作而誉满全球。被誉为“人工智能之父”。
+
+本报告的模板是Elegant\LaTeX{} Book,在此感谢其作者ddswhu和LiamHuang0205,其邮箱为\url{elegantlatex@gmail.com}。
+
+\section{实习感想}
+
+本次实习，我们通过实践对书中的理论进行了验证，加深了对摄影测量学基础理论、测量原理的理解和掌握程度，提高了实践技能，同时也增进了同学间的友谊，增加了配合的默契程度，体现了团队精神。在我看来，通过实习获得的解决问题的能力和收获的精神品质，远比实习学到的知识重要的多。
+
+\section{程序集}
+
+\subsection{内定向}
+
+\begin{lstlisting}[caption=nedingxiang.m文件]
+mark=textread('C:\Users\wode\Desktop\摄影测量实验\camera.use');
+pixel=[7679 13823;0 13823 ;0 0;7679 0];
+y=reshape(mark',[8 1]);
+X=zeros(8,6); 
+for i=1:4,
+    X(2*i-1:2*i,:)=[1,pixel(i,1),pixel(i,2),0,0,0;
+                    0,0,0,1,pixel(i,1),pixel(i,2)];
+end
+N=inv(X'*X);
+beta=N*X'*y
+csvwrite('C:\Users\wode\Desktop\摄影测量实验\余周炜\neidingxiang.csv',beta);
+r=size(y,1)-6;
+e=y-X*beta;
+sigma=sqrt(norm(e)/r);
+% cc=xlsread('C:\Users\wode\Desktop\摄影测量实验\点之记改.xlsx',1,'B3:E47');
+cc=xlsread('C:\Users\wode\Desktop\摄影测量实验\点之记新.xlsx',1,'B3:E13');
+retVal=zeros(size(cc,1),4);
+for i=1:size(cc,1),
+    line=[1 cc(i,1) cc(i,2) 0 0 0;
+    0 0 0 1 cc(i,1) cc(i,2);
+    1 cc(i,3) cc(i,4) 0 0 0;
+    0 0 0 1 cc(i,3) cc(i,4)]*beta;
+    retVal(i,:)=line';
+end
+% xlswrite('C:\Users\wode\Desktop\摄影测量实验\框标点.xlsx',retVal);
+% xlswrite('C:\Users\wode\Desktop\摄影测量实验\全班框标点.xlsx',retVal);
+xlswrite('C:\Users\wode\Desktop\摄影测量实验\框标点新.xlsx',retVal);
+\end{lstlisting}
+
+模型：
+\begin{equation}
+\begin{bmatrix}
+x \\ y
+\end{bmatrix}
+=\begin{bmatrix}
+h_1 & h_2 \\
+k_1 & k_2 
+\end{bmatrix}
+\begin{bmatrix}
+i \\ j
+\end{bmatrix}
++\begin{bmatrix}
+h_0 \\ k_0
+\end{bmatrix}
+\end{equation}
+
+得出的内定向参数如下：
+\begin{equation}
+\begin{array}{lll}
+h_0=-46.08 & h_1=0.012 & h_2=0 \\
+k_0=82.944 & k_1=0 & k_2=-0.012
+\end{array}
+\end{equation}
+
+\subsection{相对定向}
+
+\begin{lstlisting}[caption=xiangdui.m文件]
+syms theta;
+syms phi1 kappa1;
+syms phi2 omega2 kappa2;
+f=120; %mm
+x0=0; %principal point shift
+y0=0;
+Rx=[1 0 0;0 cos(theta) -sin(theta);0 sin(theta) cos(theta)];
+Ry=[cos(theta) 0 -sin(theta); 0 1 0; sin(theta) 0 cos(theta)];
+Rz=[cos(theta) -sin(theta) 0; sin(theta) cos(theta) 0;0 0 1];
+R1=subs(Ry,phi1)*subs(Rz,kappa1);
+R2=subs(Ry,phi2)*subs(Rx,omega2)*subs(Rz,kappa2);
+% mat=xlsread('C:\Users\wode\Desktop\摄影测量实验\框标点.xlsx',1,'A1:D34');
+mat=xlsread('C:\Users\wode\Desktop\摄影测量实验\框标点新.xlsx',1,'A1:D11');
+% mat=xlsread('C:\Users\wode\Desktop\摄影测量实验\全班框标点.xlsx',1,'A1:D31');
+mat1=mat(:,1:2);
+mat2=mat(:,3:4);
+mat1=[mat1,-f*ones(size(mat1,1),1)]';
+mat2=[mat2,-f*ones(size(mat2,1),1)]';
+mat11=R1*mat1;
+mat22=R2*mat2;
+r=(mat11(2,:).*mat22(3,:)-mat11(3,:).*mat22(2,:)).';
+x=[0,0,0,0,0]';
+v=GaussNewton(r,x,2e-7)
+csvwrite('C:\Users\wode\Desktop\摄影测量实验\余周炜\xiangdui.csv',v);
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption=GaussNewton.m文件]
+function [retVal]=GaussNewton(f,x,error)
+syms phi1 kappa1 phi2 omega2 kappa2;
+v=[phi1 kappa1 phi2 omega2 kappa2];
+j=jacobian(f,v);
+J=eval(subs(j,v,x'));
+F=eval(subs(f,v,x'));
+k=0;
+d=1;
+while norm(d)>error,
+    d=-inv(J'*J)*J'*F;
+    x=x+d;
+    J=eval(subs(j,v,x'));
+    F=eval(subs(f,v,x'))
+    k=k+1
+    disp(norm(J'*F));
+end
+retVal=x;
+\end{lstlisting}
+
+还有一个和相对定向相关的前方交会程序：
+\begin{lstlisting}[caption=qianfang.m]
+v=csvread('C:\Users\wode\Desktop\摄影测量实验\余周炜\xiangdui.csv');
+% kuangbiao=xlsread('C:\Users\wode\Desktop\摄影测量实验\框标点.xlsx');
+% kuangbiao=xlsread('C:\Users\wode\Desktop\摄影测量实验\全班框标点.xlsx');
+kuangbiao=xlsread('C:\Users\wode\Desktop\摄影测量实验\框标点副本.xlsx');
+kuangbiao=kuangbiao(:,1:4);
+syms theta;
+f=120;
+Rx=[1 0 0;0 cos(theta) -sin(theta);0 sin(theta) cos(theta)];
+Ry=[cos(theta) 0 -sin(theta);0 1 0;sin(theta) 0 cos(theta)];
+Rz=[cos(theta) -sin(theta) 0;sin(theta) cos(theta) 0;0 0 1];
+phi1=v(1);
+kappa1=v(2);
+phi2=v(3);
+omega2=v(4);
+kappa2=v(5);
+R1=eval(subs(Ry,phi1)*subs(Rz,kappa1));
+R2=eval(subs(Ry,phi2)*subs(Rx,omega2)*subs(Rz,kappa2));
+image1=[kuangbiao(:,1:2) -f*ones(size(kuangbiao,1),1)]';
+image2=[kuangbiao(:,3:4) -f*ones(size(kuangbiao,1),1)]';
+a1=R1*image1;
+a2=R2*image2;
+M=(7680*0.2)/(46.08*2); %0.2是像元宽度。
+b=46.08*2*(1-0.6)*M;
+B=[b 0 0];
+xyzq=zeros(size(a1,2),4);
+for i=1:size(a1,2),
+    N1=(B(1)*a2(3,i))/(a1(1,i)*a2(3,i)-a2(1,i)*a1(3,i));
+    N2=(B(1)*a1(3,i))/(a1(1,i)*a2(3,i)-a2(1,i)*a1(3,i));
+    x=N1*a1(1,i);
+    t1=N1*a1(2,i)
+    t2=N2*a2(2,i)
+    y=0.5*(N1*a1(2,i)+N2*a2(2,i));
+    z=N1*a1(3,i);
+    q=N1*a1(2,i)-N2*a2(2,i);
+    xyzq(i,:)=[x y z q]
+end
+q=xyzq(:,4);
+% XYZ=xlsread('C:\Users\wode\Desktop\摄影测量实验\点之记改.xlsx',1,'H3:J47');
+XYZ=xlsread('C:\Users\wode\Desktop\摄影测量实验\点之记 - 副本.xls',1,'F3:H13');
+xyz=xyzq(:,1:3);
+xlswrite('C:\Users\wode\Desktop\摄影测量实验\inspect副本.xlsx',[kuangbiao q xyz XYZ]);
+\end{lstlisting}
+
+得出的相对定向参数如下：
+\begin{equation}
+\begin{array}{lll}
+\phi_1=-0.012455 & & \kappa_1=0.028415 \\
+\phi_2=0.013341 & \omega_2=-0.022506 & \kappa_2=0.036366
+\end{array}
+\end{equation}
+
+\subsection{绝对定向}
+
+\begin{lstlisting}[caption=juedui.m文件]
+allpoints=xlsread('C:\Users\wode\Desktop\摄影测量实验\inspect副本.xlsx');
+xyz=allpoints(:,6:8);
+XYZ=allpoints(:,9:11);
+XYZmean=mean(XYZ);
+XYZ=XYZ-ones(size(XYZ))*diag(mean(XYZ));
+xyz=xyz-ones(size(xyz))*diag(mean(xyz));
+syms theta;
+Rx=[1 0 0;0 cos(theta) -sin(theta);0 sin(theta) cos(theta)];
+Ry=[cos(theta) 0 -sin(theta);0 1 0;sin(theta) 0 cos(theta)];
+Rz=[cos(theta) -sin(theta) 0;sin(theta) cos(theta) 0;0 0 1];
+syms phi omega kappa lambda dx dy dz;
+R=subs(Ry,phi)*subs(Rx,omega)*subs(Rz,kappa);
+groundStretch=reshape(XYZ',size(XYZ,1)*size(XYZ,2),1);
+rotateModel=lambda*R*xyz';
+r=rotateModel+diag([dx dy dz])*ones(size(rotateModel));
+r=reshape(r,size(r,1)*size(r,2),1);
+r=r-groundStretch;
+x=[0 0 0 1 0 0 0]';
+v=GaussNewton2(r,x,2e-7)
+csvwrite('C:\Users\wode\Desktop\摄影测量实验\余周炜\juedui.csv',[v;XYZmean']);
+\end{lstlisting}
+
+
+\begin{lstlisting}[caption=GaussNewton2.m文件]
+function [retVal]=GaussNewton2(f,x,error)
+syms phi omega kappa lambda dx dy dz;
+v=[phi omega kappa lambda dx dy dz];
+j=jacobian(f,v);
+J=eval(subs(j,v,x'));
+F=eval(subs(f,v,x'));
+k=0;
+while norm(J'*F)>error,
+    d=-inv(J'*J)*J'*F;
+    x=x+d
+    J=eval(subs(j,v,x'));
+    F=eval(subs(f,v,x'));
+    k=k+1
+    disp(norm(J'*F));
+end
+retVal=x;
+\end{lstlisting}
+
+\begin{lstlisting}[caption=jueduitransform.m]
+v=csvread('C:\Users\wode\Desktop\摄影测量实验\余周炜\juedui.csv');
+allpoints=xlsread('C:\Users\wode\Desktop\摄影测量实验\inspect副本.xlsx');
+
+syms theta;
+Rx=[1 0 0;0 cos(theta) -sin(theta);0 sin(theta) cos(theta)];
+Ry=[cos(theta) 0 -sin(theta);0 1 0;sin(theta) 0 cos(theta)];
+Rz=[cos(theta) -sin(theta) 0;sin(theta) cos(theta) 0;0 0 1];
+phi=v(1);
+omega=v(2);
+kappa=v(3);
+lambda=v(4);
+d=v(5:7);
+R=eval(subs(Ry,phi)*subs(Rx,omega)*subs(Rz,kappa));
+
+xyz=allpoints(:,6:8);
+XYZ0=allpoints(:,9:11);
+xyz=xyz-ones(size(xyz))*diag(mean(xyz));
+XYZ=lambda*R*xyz'+diag(d)*ones(size(xyz'))
+XYZ=XYZ+diag(mean(XYZ0))*ones(size(XYZ))
+xlswrite('C:\Users\wode\Desktop\摄影测量实验\dimianzuobiao.xlsx',XYZ);
+\end{lstlisting}
+
+我还编写了一个程序在参数已知的情形下直接从像素坐标转换到地面摄测坐标，即将内定向、前方交会、绝对定向坐标转换三合一了：
+\begin{lstlisting}[caption=transform.m]
+v1=csvread('C:\Users\wode\Desktop\摄影测量实验\余周炜\neidingxiang.csv');
+v2=csvread('C:\Users\wode\Desktop\摄影测量实验\余周炜\xiangdui.csv');
+v3=csvread('C:\Users\wode\Desktop\摄影测量实验\余周炜\juedui.csv');
+
+pair=xlsread('C:\Users\wode\Desktop\摄影测量实验\点之记 - 副本.xls',1,'B3:E76');
+
+syms theta;
+f=120;
+Rx=[1 0 0;0 cos(theta) -sin(theta);0 sin(theta) cos(theta)];
+Ry=[cos(theta) 0 -sin(theta);0 1 0;sin(theta) 0 cos(theta)];
+Rz=[cos(theta) -sin(theta) 0;sin(theta) cos(theta) 0;0 0 1];
+
+n=size(pair,1);
+%内定向
+img1=[pair(:,1:2),ones(n,1)];
+img2=[pair(:,3:4),ones(n,1)];
+A=[v1(2) v1(3) v1(1);v1(5) v1(6) v1(4);0 0 1];
+img1=A*img1';
+img2=A*img2';
+
+%前方交会
+
+phi1=v2(1);
+kappa1=v2(2);
+phi2=v2(3);
+omega2=v2(4);
+kappa2=v2(5);
+
+R1=eval(subs(Ry,phi1)*subs(Rz,kappa1));
+R2=eval(subs(Ry,phi2)*subs(Rx,omega2)*subs(Rz,kappa2));
+
+img1(3,:)=-f*img1(3,:);
+img2(3,:)=-f*img2(3,:);
+
+M=(7680*0.2)/(46.08*2); %0.2是像元宽度。
+b=46.08*2*(1-0.6)*M;
+B=[b 0 0];
+
+a1=R1*img1;
+a2=R2*img2;
+
+N1=(B(1).*a2(3,:))./(a1(1,:).*a2(3,:)-a2(1,:).*a1(3,:));
+N2=(B(1).*a1(3,:))./(a1(1,:).*a2(3,:)-a2(1,:).*a1(3,:));
+
+x=N1.*a1(1,:);
+y=0.5*(N1.*a1(2,:)+N2.*a2(2,:));
+z=N1.*a1(3,:);
+
+xyz=[x;y;z]';
+
+
+%模型坐标转换
+
+phi=v3(1);
+omega=v3(2);
+kappa=v3(3);
+lambda=v3(4);
+d=v3(5:7);
+
+meanXYZ=v3(8:10);
+meanxyz=v3(11:13);
+R=eval(subs(Ry,phi)*subs(Rx,omega)*subs(Rz,kappa));
+xyz=xyz-ones(size(xyz))*diag(meanxyz);
+
+XYZ=lambda*R*xyz';
+XYZ=lambda*R*xyz'+diag(d)*ones(size(xyz'));
+XYZ=XYZ+diag(meanXYZ)*ones(size(XYZ));
+xlswrite('C:\Users\wode\Desktop\摄影测量实验\dimianzuobiao.xlsx',XYZ');
+\end{lstlisting}
+
+得出的绝对定向参数如下：
+\begin{equation}
+\begin{array}{lll}
+\phi=0.011264 & \omega=0.005638 & \kappa=0.0053766 \\
+& \lambda=1.1318 & \\
+dx=0 & dy=0 & dz=0  
+\end{array}
+\end{equation}
+值得注意的是，这里的$\MR=\MR_y(\phi)\MR_x(\omega)\MR_z(\kappa)$,与书中的布尔萨模型不同。同时地面坐标和模型坐标均是重心化的结果。故转换前，需减去参与绝对定向的模型的重心坐标，转换后，需加上参与绝对定向的地面点的重心坐标。
+
+参与定向的模型的重心坐标如下：
+\begin{equation}
+\begin{array}{lll}
+\bar x=513.05 & \bar y=611.92 & \bar z=-2113.3
+\end{array}   
+\end{equation}
+
+参与定向的地面点重心坐标如下：
+\begin{equation}
+\begin{array}{lll}
+\bar X=3057.3 & \bar Y=5490.9 & \bar Z=8.1253
+\end{array}
+\end{equation}
+
+
+\section{同名点}
+
+
+% \section{相对定向点}
+
+% 我们小组量测得到的相对定向点如下表：
+
+% % Table generated by Excel2LaTeX from sheet 'Sheet1'
+% \begin{center}
+%     \tablehead{   \hline     & \multicolumn{2}{c|}{63} & \multicolumn{2}{c|}{64} \\ \hline
+%     点号 & \multicolumn{1}{c}{i} & \multicolumn{1}{c|}{j} & \multicolumn{1}{c}{i} & \multicolumn{1}{c|}{j} \\ \hline}
+%     \tabletail{\hline}
+%       \begin{supertabular}{|l|rr|rr|}
+
+     
+     
+    
+  
+%       \end{supertabular}%
+%   \end{center}%
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lrrrr}
+    \toprule
+    & \multicolumn{2}{c}{63} & \multicolumn{2}{c}{64} \\ \hline
+    点号 & \multicolumn{1}{c}{i} & \multicolumn{1}{c}{j} & \multicolumn{1}{c}{i} & \multicolumn{1}{c}{j} \\ \midrule
+    1  & 3507 & 1509 & 316 & 1067 \\
+    2  & 3699 & 1408 & 466 & 965 \\
+    3  & 3791 & 1410 & 556 & 968 \\
+    4  & 4442 & 1397 & 1278 & 969 \\
+    5  & 4446 & 1457 & 1281 & 1031 \\
+    6  & 4821 & 1394 & 1663 & 975 \\
+    7  & 5672 & 2044 & 2409 & 1657 \\ \bottomrule
+\end{tabular}
+\end{table}
+  
+
+
+\section{调绘图件}
+
+\begin{figure}[htbp]
+\centering
+\caption{调绘图概览}
+\includegraphics[width=\textwidth]{diaohui.jpg}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\caption{调绘图细节}
+\includegraphics[width=\textwidth]{diaohui1.jpg}
+\end{figure}
