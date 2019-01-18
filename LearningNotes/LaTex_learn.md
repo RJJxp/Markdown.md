@@ -555,3 +555,100 @@ The **natbib** package is widely used for generating bibliography, because of it
 
 Use command `\usepackage[options]{natbib}` to load the package
 
+<font color=red>**EASY TO UNDERSTAND THE USAGE, BUT CAN NOT REALIZE IN MY PC**</font>
+
+<font color=red>**SKIP**</font>
+
+
+
+## 4.Bibliographic Databases
+
+Bibliographic database is a database in which all the useful bibliographic entries can be stored. The information about the various publications is stored in one or more files with the extension `.bib` . For each publication, there is a key that identifies it and which may be used in the text  document to refer to it. 
+
+### 4.1 The BIBTEX Program
+
+BIBTEX is an auxiliary program to LATEX that automatically constructs a bibliography for a LaTeX document from one or more databases.
+
+To use BIBTEX Program, input command `\bibliography{database1, database2}` and command `\bibliographystyle{your_style}` .
+
+The later can be anywhere after `\begin{document}` .
+
+### 4.2 BIBTEX Style Files
+
+The options of command `\bibliographystyle{options}` are:
+
+ `plain` , `unsrt` , `alpha` , `abbrv` , `acm` , `apalike` 
+
+Steps for running BIBTEX with LaTeX: 
+
+1. Run LaTeX, which generates a list of `\cite` reference in its `.aux` .
+
+2. Run BIBTEX, which reads the `.aux` , try to find reference in a database. Attention, BIBTEX never read source file `.tex` . In this step, it will generate `.bbl` .
+
+3. Run LaTeX again, it will read `.bbl` reference files.
+
+4. Run LaTex again, it will resolve all the references.
+
+### 4.3 Creating A Bibliographic Database 
+
+<font color=red>**SKIP RIGHT NOW**</font>
+
+
+
+## 5. Table of Contents, Index and Glossary
+
+### 5.1 Table of Contents
+
+A **table of contents** is a special list which contains the section numbers and corresponding headings as given in he standard form of the sectioning commands, together with the page number on which they begin. 
+
+The **list of tables** and **list of figures** containing reference information about floating elements in the document is similar to **table of contents**, but much easier since their contents, their captions are on the same level.
+
+Standard LaTeX can automatically create these three contents lists and put them in the file `.toc` , `.lof` , `.lot` representing `tableofcontents` , `listoffigures` , `listoftables` .
+
+ `.toc` organizes the table of contents by the `\section` command in the `.tex` ;  
+
+ `listoffigures` and `listoftables` are organized by the command `\caption` in the `.tex` 
+
+ `\tableofcontents` produces a table of contents.
+
+ `\listoffigures` and `listoftables` produces a list of figure and list of tables respectively.
+
+These list are printed where the commands are issued.
+
+If you are not satisfied with the LaTeX default, you can try the formatting command, like 
+
+ `\addtocontents` 
+
+#### 5.1-1 Additional entries
+
+ `\addtocontents{file}{text}` 
+
+ `\addcontentsline{file}{type}{text}` 
+
+file: `toc` , `lof` , `lot` 
+
+type: The type of entry. For `lof` or `lot` files, **figure** or **table** is  specified.
+
+text: The actual information to be written to the file mentioned. LaTeX commands should be protected by `\protect` to delay expansion.
+
+- command `\addtocontents{file}{text}` :
+
+  use command `\addtocontents{toc}{\protect\vspace{2ex}}` to generate addtional spacing in the middle of a table of contents. Here is the difference of before and after:
+
+  ![before](pic/LaTexLearning/chapter05/01.jpg)
+
+
+
+  ![after](pic/LaTexLearning/chapter05/02.jpg)
+
+  Apparently, the distance between **Contents** and **below** is much longer.
+
+  It is something like add command to the file you mentioned, and change the typesetting of the content or the list.
+
+- command `\addcontentsline{file}{type}{text}` :
+
+   `\addcontentsline` is usually invoked automatically by the **sectioning command**, or by the `\caption` commands.
+
+  It is something like you could customize the list or the content. 
+
+#### 5.1-2 Typesetting a contents list
