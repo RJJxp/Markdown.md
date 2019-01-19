@@ -15,57 +15,76 @@
 
 ## 2. `.json` 设置文件
 
+2019年1月19日15:02:15 更新
+
+之前的配置只是单纯的用炜哥给的设置
+
+在嘉定那边疯狂配置环境, 现在来看这些配置居然都能看懂什么意思了
+
+发现自己之前的配置问题很大, 于是重新写一遍
+
 ```json
 {
-    "latex-workshop.view.pdf.viewer": "tab",
+    // common setting
     "files.autoSave": "onFocusChange",
+    "editor.wordWrap": "on",
+    // git setting
+    "git.ignoreMissingGitWarning": true,
+    // latex-workshop part setting
+    // first tool is default for compilation
     "latex-workshop.latex.tools": [
         {
-            "name": "latexmk",
-            "command": "latexmk",
+            // use the xelatex instead of default latexmk
+            // xelatex can work for chinese
+            "name": "xelatex",
+            "command": "xelatex",
             "args": [
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
                 "-pdf",
+                "-outdir=%OUTDIR%",
                 "%DOC%"
             ]
         },
         {
-            "command": "xelatex",
+            "name": "pdflatex",
+            "command": "pdflatex",
             "args": [
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
                 "%DOC%"
             ]
-        }, {
+        },
+        {
+            "name": "bibtex",
             "command": "bibtex",
             "args": [
                 "%DOCFILE%"
             ]
-        }, {
-            "command": "xelatex",
-            "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "%DOC%"
-            ]
-        }, {
-            "command": "xelatex",
-            "args": [
-                "-synctex=1",
-                "-interaction=nonstopmode",
-                "-file-line-error",
-                "%DOC%"
-            ]
         }
     ],
-    "editor.wordWrap": "on",
-    "latex-workshop.message.update.show": false,
-    "latex-workshop.latex.autoBuild.onSave.enabled": false,
-    "git.ignoreMissingGitWarning": true
+    // first recipes is default for compilation
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "xe->bib->xe->xe",
+            "tools": [
+                "xelatex",
+                "bibtex",
+                "xelatex",
+                "xelatex"
+            ]
+        }
+    ]
 }
 ```
+
+
 

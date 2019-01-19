@@ -555,13 +555,13 @@ The **natbib** package is widely used for generating bibliography, because of it
 
 Use command `\usepackage[options]{natbib}` to load the package
 
-<font color=red>**EASY TO UNDERSTAND THE USAGE, BUT CAN NOT REALIZE IN MY PC**</font>
 
-<font color=red>**SKIP**</font>
 
 
 
 ## 4.Bibliographic Databases
+
+<font color=red>**ATTETION USE pdflatex->bibtex->pdflatex->pdflatex TO BUILD THE PROJECT**</font>
 
 Bibliographic database is a database in which all the useful bibliographic entries can be stored. The information about the various publications is stored in one or more files with the extension `.bib` . For each publication, there is a key that identifies it and which may be used in the text  document to refer to it. 
 
@@ -569,15 +569,24 @@ Bibliographic database is a database in which all the useful bibliographic entri
 
 BIBTEX is an auxiliary program to LATEX that automatically constructs a bibliography for a LaTeX document from one or more databases.
 
-To use BIBTEX Program, input command `\bibliography{database1, database2}` and command `\bibliographystyle{your_style}` .
+ `\bibliography{database1, database2... }` specifies one or more files including database.
 
-The later can be anywhere after `\begin{document}` .
+To use BIBTEX, you source file must contain a command `\bibliographysytle` command which determines the format of source list. The command can be anywhere after `\begin{document}` .
 
 ### 4.2 BIBTEX Style Files
 
 The options of command `\bibliographystyle{options}` are:
 
  `plain` , `unsrt` , `alpha` , `abbrv` , `acm` , `apalike` 
+
+- `plain` : Standard BIBTEX style. Entries sorted alphabetically with numeric labels.
+- `unsrt` : Standard BIBTEX style, order of citation and numeric labels.
+- `alpha` : Standard BIBTEX style, formed from author's name and the year of publication.
+- `abbrv` : Standard BIBTEX style, more compact, all abbreviated.
+- `acm` : Alternative BIBTEX style, for Association for Computing Machinery.
+- `apalike` : Alternative BIBTEX style, for American Psychology Association.
+
+All the style is defined by a `.bst` , so it's easy to customize.
 
 Steps for running BIBTEX with LaTeX: 
 
@@ -652,3 +661,50 @@ text: The actual information to be written to the file mentioned. LaTeX commands
   It is something like you could customize the list or the content. 
 
 #### 5.1-2 Typesetting a contents list
+
+Custimze the table of contents by yourself. In my opinion, it's better take a look at `.toc` file. 
+
+```latex
+\contentsline {section}{\numberline {1}first}{1}
+\contentsline {subsection}{\numberline {1.1}first-01}{1}
+\contentsline {subsection}{\numberline {1.2}first-02}{2}
+\contentsline {section}{\numberline {2}second}{3}
+\contentsline {subsection}{\numberline {2.1}second-01}{3}
+\contentsline {subsection}{\numberline {2.2}second-02}{4}
+\contentsline {section}{\numberline {3}third}{5}
+\contentsline {subsection}{\numberline {3.1}third-01}{5}
+\contentsline {subsection}{\numberline {3.2}third-02}{6}
+```
+
+These codes generate the table of contents mentioned in the [5.1-1](#5.1-1 Additional entries)
+
+Apparently, the command `\numberline` is to generate the beautiful number.
+
+To format an entry in the table of contents files, standard LaTeX makes use of the following command: `\@dottedtocline{level}{indent}{numwidth}{text}{page}` 
+
+- level: the nesting level of the content you want to add. If the level is bigger than the toc depth, it will not be added.
+- indent: total indentation from the left margin
+- numwidth: The width of the box that contains the number if text has a `\numberline ` command. This is also the amount of extra indentation added to the second and later lines of a multiple line entry
+
+the last 2 parameters coincide with command `\contentsline{}` 
+
+#### 5.1-3 Multiple tables of contents
+
+The `minitoc` package creates a mini-table of contents at the beginning of each chapter when use book or report class. The mini-table will appear at the beginning of a chapter, after `\chapter` command. 
+
+<font color=red>**SKIP**</font>
+
+
+
+### 5.2 Index
+
+Important to use index to find a topic of interest.
+
+### 5.3 Glossary
+
+<font color=red>**SKIP**</font>
+
+
+
+## 6.DISPLAYED TEXT
+
