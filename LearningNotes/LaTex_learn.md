@@ -706,5 +706,238 @@ Important to use index to find a topic of interest.
 
 
 
-## 6.DISPLAYED TEXT
+## 6.Displayed Text
+
+When we want to seperate a portion of text from its surrounding metarial, one method of doing this is to typeset the distinguished text with added indentation. It is called displaying.
+
+### 6.1 Borrowed Words
+
+If the quote is one-liner, we can simply produce it with double-quotes.
+
+But if the quotation is several lines long, use the *environment* `quote` like:
+
+```latex
+% single paragraph
+\begin{quote}
+	...
+\end{quote}
+
+% several paragraphes
+\begin{quotation}
+...
+...
+\end{quotation}
+```
+
+### 6.2 Poetry In Typesetting
+
+Use *environment* `verse` :
+
+```latex
+\begin{verse}
+line\\
+line % to seperate different stanzas
+
+line
+line\\* % to make couplet in the same page
+line\\[5pt] % control the distance between lines 
+\end{verse}
+```
+
+### 6.3 Making Lists
+
+Use *environment* `itemize` :
+
+```latex
+\begin{itemize}
+    \item first level
+        \begin{itemize}
+            \item second level
+            \begin{itemize}
+                \item third level
+                    \begin{itemize}
+                        \item fourth level
+                    \end{itemize}
+            \end{itemize}
+        \end{itemize}
+\end{itemize}
+```
+
+Not satisfied with default, try this: 
+
+```latex
+{\renewcommand{\labelitemi}{$\triangleright$}}
+\begin{itemize}
+	\item first item
+	\item second item
+\end{itemize}
+```
+
+### 6.4 When Order Matters
+
+Use *environment* `enumerate` 
+
+```latex
+\begin{enumerate}
+	\item item1
+	\item item2
+\end{enumerate}
+```
+
+If you want to customize the label of `enumerate` , use package `enumerate` and write in `.tex` like this :
+
+```latex
+\begin{enumerate}[i.]
+	\item item1
+	\item item2
+\end{enumerate}
+```
+
+And something more complicated like:
+
+```latex
+% set the horizon space, font and style of label
+% also you can set the indent of label
+% itemindent = 5pt
+\begin{enumerate}[\hspace{0.5cm} \bfseries Step 1.]
+    \item item1
+    \item item2
+        \begin{enumerate}
+            \item item1
+            \item item2
+            \item item3  
+        \end{enumerate}
+    \item item3
+\end{enumerate}
+```
+
+### 6.5 Description And Definitions
+
+Use *environment* `description` :
+
+```latex
+\renewcommand{\descriptionlabel}[1]{\hspace{1cm}\textsf{#1}}
+\begin{description}
+    \item[rjp] myself
+    \item[tj] tongji university
+    \item[zsm] my teacher  
+\end{description}
+```
+
+It's time to talk about the three list environment we have seen:
+
+ `itemize` , `enumerate` , `description` 
+
+In any of case, we can override the default labels by the environment.
+
+```latex
+The real number $l$ is the least upper bound of the set $A$ if it satisfies the following conditions 
+\begin{enumerate}
+	\item[(1)] $l$ is an upper bound of $A$
+	\item[(2)] $2$ if $u$ is an upper bound of $A$, then $l\le u$  
+\end{enumerate}
+The second condition is equivalent to 
+\begin{enumerate}
+	\item[(2)$'$] If $a<l$, then $a$ is not an upper bound of $A$
+\end{enumerate}
+```
+
+
+
+## 7. Rows And Columns
+
+Sometimes we want the second result not the first result by *environment* `description` 
+
+![pic](pic/LaTexLearning/chapter07/01.jpg)
+
+Here the 3 rows of text are visually separated into 2 columns of left aligned text which is produced by `tabbing` environment.
+
+### 7.1 Keeping Tabs
+
+#### 7.1-1 Basics
+
+The code is below: 
+
+```latex
+Let's take stock of what we have learnt
+\begin{tabbing}
+    \hspace{1cm}\= \textbf{AbiWord}\quad\=A Word Processer\\[5pt]
+                \> \textbf{Emacs} \>A text Editor\\[5pt]
+                \> \textbf{\TeX} \> A typesetting program 
+\end{tabbing}
+```
+
+And the result is like:
+
+![pic](pic/LaTexLearning/chapter07/02.jpg)
+
+ `\=` divides `tab` : 2 `\=` indicates there are 3 tabs
+
+ `\>` follow the first line `tab` , the *follow* means keeping the same distance between tab1 and tab2 in second line(or third, fourth, so on.) as the first line. And this distance is only determined by what between `\=` the first line.
+
+So here is a problem, when the first line's tab1 is much shorter than third line's, it will result in something like: 
+
+```latex
+Let's take stock of what we have learnt
+\begin{tabbing} 
+    \textbf{\TeX}\quad\= A typesetting program\\[5pt]
+    \textbf{Emacs}\quad\>A text Editor\\[5pt]
+    \textbf{AbiWord}\quad\>A Word Processer
+\end{tabbing}
+```
+
+
+
+![pic](pic/LaTexLearning/chapter07/03.jpg)
+
+ `Word Processor` is override by previous tab `AbiWord` , when that shit happens, use *dummy line*  command `\kill` which makes the first line disappear in the `.pdf` .
+
+```latex
+Let's take stock of what we have learnt
+\begin{tabbing} 
+	\textbf{AbiWord}\quad\=A Word Processor\kill
+    \textbf{\TeX}\quad\> A typesetting program\\[5pt]
+    \textbf{Emacs}\quad\>A text Editor\\[5pt]
+    \textbf{AbiWord}\quad\>A Word Processer
+\end{tabbing} 
+```
+
+The function of *dummy line* is just to control the distance of every tab
+
+You can also use string `sssssssss...ssss` to alternative, like:
+
+```latex
+\begin{tabbing}
+    sssssssssssss\quad\=: \=ssssssss\kill\\[5pt]
+    Program\quad\> :\>\TeX\\[5pt]
+    Author\quad\>:\>Donald Knuth\\[5pt]
+    Manuals\quad\>:\\
+    \quad\= ssssssssssssssssssssssssssssssssssssss\=sssssssssssssssssssssss\=ssssssssssssssss\kill\\
+        \>textsf{title}\>\textsf{author}\>\textsf{publisher}\\[8pt]
+        \>The \TeX Book\>Donald Knuth\>publisher01\\[5pt]
+        \>The Advanced \TeX\ Book\>David Salomon\>publisher02
+\end{tabbing}
+```
+
+#### 7.1-2 Pushing and popping
+
+What if you change the tab positions and then want the original settings back? Here’s where the command pair `\pushtabs` ... `\poptabs` is useful. Thus to typeset:
+
+```latex
+\begin{tabbing}
+    sssssssssssss\quad\=: \=ssssssss\kill\\[5pt]
+    Program> :\>\TeX\\[5pt]
+    Author>:\>Donald Knuth\\[5pt]
+    Manuals>:\\
+   \pushtabs
+   \quad\= ssssssssssssssssssssssssssssssssssssss\=sssssssssssssssssssssss\=ssssssssssssssss\kill\\
+        \>textsf{title}\>\textsf{author}\>\textsf{publisher}\\[8pt]
+        \>The \TeX Book\>Donald Knuth\>publisher01\\[5pt]
+        \>The Advanced \TeX\ Book\>David Salomon\>publisher02\\[8pt]
+    \poptabs
+    Toturials\>:\>www.tex.com
+\end{tabbing}
+```
+
+#### 7.1-3 More commands
 
