@@ -30,7 +30,7 @@
     "editor.wordWrap": "on",
     // git setting
     "git.ignoreMissingGitWarning": true,
-    // latex-workshop part setting
+    // latex-workshop setting
     // first tool is default for compilation
     "latex-workshop.latex.tools": [
         {
@@ -42,8 +42,6 @@
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "-pdf",
-                "-outdir=%OUTDIR%",
                 "%DOC%"
             ]
         },
@@ -68,9 +66,29 @@
     // first recipes is default for compilation
     "latex-workshop.latex.recipes": [
         {
-            "name": "xelatex",
+            "name": "xe",
             "tools": [
                 "xelatex"
+            ]
+        },
+        {
+            "name": "pdf",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "xe->xe",
+            "tools": [
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdf->pdf",
+            "tools": [
+                "pdflatex",
+                "pdflatex"
             ]
         },
         {
@@ -81,8 +99,20 @@
                 "xelatex",
                 "xelatex"
             ]
+        },
+        {
+            "name": "pdf->bib->pdf->pdf",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
         }
-    ]
+    ],
+    "latex-workshop.latex.autoBuild.onSave.enabled": false,
+    "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+    "latex-workshop.view.pdf.viewer": "tab"
 }
 ```
 

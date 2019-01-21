@@ -939,5 +939,239 @@ What if you change the tab positions and then want the original settings back? H
 \end{tabbing}
 ```
 
-#### 7.1-3 More commands
+### 7.2 Tables
+
+Use *environment* `tabular` 
+
+```latex
+\begin{tabular}{lr}
+% l:first column aligned left
+% r:second column aligned right
+% every column line break by command \\
+    Planet  &   Diameter(km)\\[5pt]
+    Mercury &   4878\\
+    Venus   &   12104\\
+    Earth   &   6794\\
+    Jupiter &   142984\\
+    Saturn  &   120536\\
+    Uranus  &   51118\\
+    Neptune &   49532\\
+    Pluto   &   2274
+\end{tabular}
+```
+
+```latex
+% table with row and column line
+\begin{tabular}{|l|r|}
+    \hline
+    Planet  &   Diameter(km)\\[5pt]
+    \hline        
+    Mercury &   4878\\
+    \hline
+    Venus   &   12104\\
+    \hline
+    Earth   &   6794\\
+    \hline
+    Jupiter &   142984\\
+    \hline
+    Saturn  &   120536\\
+    \hline
+    Uranus  &   51118\\
+    \hline
+    Neptune &   49532\\
+    \hline
+    Pluto   &   2274\\
+    \hline
+\end{tabular}
+```
+
+The tabular options  has `l` , `r` , `c` , `q` , means aligned by left, right, center, paragraphbox
+
+In a p-type column, if command `\raggedright` or `centering` is giving, the command `\\` will not change to next row, on the contrary, it break lines of the paragraph in the box. So if you want to break line and change to next row, use command `\tabularnewline[5pt]` which can terminate the scope of `\centering` or whatever.
+
+```latex
+\begin{tabular}{lp{6cm}} %{lp{0.8\linewidth}}
+    Planet  &   Features\tabularnewline[8pt]
+    Mercury &   \raggedright
+    			Lunar like crust\\
+    			crustal faulting\\
+    			small magnetic fields.
+    			\tabularnewline[3pt]
+    Venus   &   \raggedright
+    			Shrouded in clouds\\        
+    			undulating surface with highlands, plains, lowlands and craters.
+    			\tabularnewline[3pt]
+    Earth   &   \raggedright
+    			Ocens of water filling lowlands between continents\\
+   				unique in supporting life, magnetic field.
+   				\tabularnewline[3pt]
+    Mars    &   \raggedright
+    			Cratered uplands\\
+    			lowland plains\\ 
+    			volcanic regions.
+    			\tabularnewline[3pt]
+    Jupiter &   \raggedright
+    			Covered by clouds\\
+    			dark ring of dust\\
+    			magnetic field.
+                \tabularnewline[3pt]
+    Saturn  &   \raggedright
+    			Several cloud layers\\
+    			magnetic field\\
+    			thousands of rings.
+    			\tabularnewline[3pt]
+    Uranus  &   \raggedright
+    			Layers of cloud and mist\\
+    			magentic field\\
+    			some rings.
+    			\tabularnewline[3pt] 
+    Neptune &   Unable to detect from earth.\tabularnewline[3pt]
+    Pluto   &   Unable to detect from earth.
+    % the last two line do not need \raggedright or \centering because they
+    % do not have to break the line in paragraph
+\end{tabular}
+```
+
+Remember the usage of command of `\multicolumn` , it could reset the position by the tabular parameter, like:
+
+```latex
+\begin{center}
+\renewcommand{arraystretch}{1.2} % change the vertical distance
+    \begin{tabular}{|l|c|c|}
+        \hline
+        Planet & \multicolumn{2}{p{4cm}|}{\centering Distance from sun\\ (million km)}\tabularnewline   % or \\
+        \cline{2-3}
+                & \multicolumn{1}{c|}{Maximum}  & \multicolumn{1}{c|}{Minimum}\\
+        \hline
+        Mercury & 69.40   & 46.80\\ \hline
+        Venus & 109.00 & 107.60\\ \hline
+        Earth & 152.60 & 147.40\\ \hline
+        Mars & 249.20 & 207.30\\ \hline
+        Jupiter & 817.40 & 741.60\\ \hline
+        Saturn & 1512.00 & 1346.00\\ \hline
+        Uranus & 3011.00 & 2740.00\\ \hline 
+    \end{tabular}
+\end{center}
+```
+
+Here are some important details:
+
+`\multicolumn{num}{pos}{text}` *text* is gonna take *num* columns with the specified *pos*
+
+1. When you set up the tabular's position, like: `\begin{tabular}{|r|c|c|}` is split to `|r|` , `c|` , `c|` .
+2. *pos* is a one-parameter(like `c` , `|c` or `c|`) specification. When the *num* is bigger than one, it set all the columns with the *pos*.
+3. When you use the command `\multicolumn` , it will override the pos defined by the tabular parameter which means flexible.
+4. Use command `\renewcommand{\arraystretch}{1.2}` (default is 1) to setup the vertical distance between each rows. Put the command after `\begin{center}` .
+
+And the example code above, use the `p` position specification. Use `\\` or `\tabularnewline` is alright thought the tutorial suggest `\\` for the reason that `centering` is in the scope of the `\multicolumn` .
+
+If you want to use dash to separate the vertical columns, like:
+
+
+
+![pic](pic/LaTexLearning/chapter07/04.jpg)
+
+use command `@` below, `r` represent aligned right in the left side, `l` represent aligned left in the right side.
+
+```latex
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|c|r@{--}l|}
+        \hline
+        Height & \multicolumn{2}{|c|}{Ideal Weight}\\
+        (cm) & \multicolumn{2}{c|}{(kg)}\\
+        \hline
+        155 & 53.5 & 64\\ \hline
+        160 & 56 & 67\\ \hline
+        165 & 59 & 71\\ \hline
+        170 & 62.5 & 75.5\\ \hline
+        175 & 66 & 79\\ \hline
+        180 & 70 & 83.5\\ \hline
+        185 & 71.5 & 86.5\\ \hline
+        190 & 78 & 92.5\\ \hline
+    \end{tabular}
+\end{center}
+```
+
+#### 7.2-1 Enhancements to *tabular*
+
+We will discuss a couple of packages here.
+
+#### 7.2-2 The array package
+
+![pic](pic/LaTexLearning/chapter07/05.jpg)
+
+Guess everybody like the right one. Thus we need *array* package to control the position by specifying the parameter `m` .
+
+```latex
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{|>{\bfseries}c|c|}
+        \hline
+        \multicolumn{1}{|>{\bfseries}m{1.5cm}|}{\centering Planet}  &  \multicolumn{1}{m{2.3cm}|}{\centering Diameter\\ (km)} \\ \hline
+        Mercury &   4878\\ \hline
+        Venus   &   12104\\ \hline
+        Earth   &   6794\\ \hline
+        Jupiter &   142984\\ \hline
+        Saturn  &   120536\\ \hline
+        Uranus  &   51118\\ \hline
+        Neptune &   49532\\ \hline
+        Pluto   &   2274\\ \hline
+    \end{tabular}
+\end{center}
+```
+
+Let's analyze the code above, using package `array` with command `\usepackage{array}` 
+
+1. Parameter `m` is kind of like parameter `p` . `|m{width}|` defines the width of the box and aligns vertically the text in the middle of box. The content in the third braces is defined same as specifier `p` also functions as `p` which aligns horizontally.
+2. Package *array* has a  `>{decl}` command that can be used before a column specifier. It will insert *decl* directly in front of the column. In the code above, the style of text in the first column is of *bfseries*.
+3. Package array has a `!` command same as `@` command, but does not suppress the intercolumn space.
+
+#### 7.2-3 The multirow package
+
+Wouldn’t it be nice if the entry “Planet” in the ﬁrst column is vertically aligned with the center of the two rows in the next column as below?
+
+![pic](pic/LaTexLearning/chapter07/06.jpg)
+
+The package *multirow* is what we need to do this painlessly.
+
+ `\multirow{num}{wd}{item}` : *num* is the rows to be spanned, *wd* is the width of this column and *item* is the text of the item in this column.
+
+```latex
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\renewcommand{\multirowsetup}{\centering}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \multirow{2}{3cm}{\centering Planet} & \multicolumn{2}{p{6cm}|}{\centering Distance from sun\\ (km)}\\
+        \cline{2-3}
+                & Maximum    & Minimum\\
+        \hline
+        Mercury & 69400000   & 46800000\\ 
+        \hline
+        Venus & 109000000 & 107600000\\ 
+        \hline
+        Earth & 152600000 & 147400000\\ 
+        \hline
+        Mars & 249200000 & 207300000\\ 
+        \hline
+        Jupiter & 817400000 & 741600000\\ 
+        \hline
+        Saturn & 1512000000 & 1346000000\\
+        \hline
+        Uranus & 3011000000 & 2740000000\\ 
+        \hline 
+    \end{tabular}
+\end{center}
+```
+
+But you will find text is not aligned horizontally in the middle. Now use the command `\renewcommand{\multirowsetup}{\centering}` change the default `raggedright` .
+
+#### 7.2-4 *Tabbing* vs. *tabular*
+
+- The *tabbing* environment can be typeset only as a separate paragraph, while the *tabular* environment can be placed anywhere in text, even inside *Mathematics*. 
+- The *tabbing* environment can span multiple pages, but the *tabular* environment cannot. 
+-  *tabbing* environments cannot be nested, while *tabular* environments can be nested to any number of levels
+
+#### 7.2-5 Multipage tables --- The package *longtable*
 
