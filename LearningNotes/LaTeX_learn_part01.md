@@ -1,4 +1,4 @@
-# LaTeX Learning Notes
+# LaTeX Learning Notes_Part01
 
 by rjp
 
@@ -555,7 +555,9 @@ The **natbib** package is widely used for generating bibliography, because of it
 
 Use command `\usepackage[options]{natbib}` to load the package
 
+ [包环境设置01](http://merkel.texture.rocks/Latex/index.php?lang=en)
 
+ [包环境设置02](https://tex.stackexchange.com/questions/166840/why-do-i-get-author-when-i-use-citet-with-natbib)
 
 
 
