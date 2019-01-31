@@ -42,8 +42,6 @@
                 "-synctex=1",
                 "-interaction=nonstopmode",
                 "-file-line-error",
-                "-pdf",
-                "-outdir=%OUTDIR%",
                 "%DOC%"
             ]
         },
@@ -68,9 +66,29 @@
     // first recipes is default for compilation
     "latex-workshop.latex.recipes": [
         {
-            "name": "xelatex",
+            "name": "pdf",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "xe",
             "tools": [
                 "xelatex"
+            ]
+        },
+        {
+            "name": "xe->xe",
+            "tools": [
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdf->pdf",
+            "tools": [
+                "pdflatex",
+                "pdflatex"
             ]
         },
         {
@@ -81,8 +99,23 @@
                 "xelatex",
                 "xelatex"
             ]
+        },
+        {
+            "name": "pdf->bib->pdf->pdf",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
         }
-    ]
+    ],
+    // this makes sure alt+tab+v can show the pdf
+    "latex-workshop.view.pdf.viewer": "tab",
+    // when save .tex, don't build
+    "latex-workshop.latex.autoBuild.onSave.enabled": false,
+    // when error happens, don't clear build files like .aux .... 
+    "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false
 }
 ```
 
