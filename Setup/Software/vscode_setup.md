@@ -30,7 +30,7 @@
     "editor.wordWrap": "on",
     // git setting
     "git.ignoreMissingGitWarning": true,
-    // latex-workshop part setting
+    // latex-workshop setting
     // first tool is default for compilation
     "latex-workshop.latex.tools": [
         {
@@ -66,6 +66,7 @@
     // first recipes is default for compilation
     "latex-workshop.latex.recipes": [
         {
+<<<<<<< HEAD
             "name": "pdf",
             "tools": [
                 "pdflatex"
@@ -73,8 +74,17 @@
         },
         {
             "name": "xe",
+=======
+            "name": "xe",
             "tools": [
                 "xelatex"
+            ]
+        },
+        {
+            "name": "pdf",
+>>>>>>> 70376618564dcb0a3e8b1ccb90d82c642b3f1103
+            "tools": [
+                "pdflatex"
             ]
         },
         {
@@ -85,6 +95,16 @@
             ]
         },
         {
+<<<<<<< HEAD
+            "name": "xe->xe",
+            "tools": [
+                "xelatex",
+                "xelatex"
+            ]
+        },
+        {
+=======
+>>>>>>> 70376618564dcb0a3e8b1ccb90d82c642b3f1103
             "name": "pdf->pdf",
             "tools": [
                 "pdflatex",
@@ -110,12 +130,18 @@
             ]
         }
     ],
+<<<<<<< HEAD
     // this makes sure alt+tab+v can show the pdf
     "latex-workshop.view.pdf.viewer": "tab",
     // when save .tex, don't build
     "latex-workshop.latex.autoBuild.onSave.enabled": false,
     // when error happens, don't clear build files like .aux .... 
     "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false
+=======
+    "latex-workshop.latex.autoBuild.onSave.enabled": false,
+    "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+    "latex-workshop.view.pdf.viewer": "tab"
+>>>>>>> 70376618564dcb0a3e8b1ccb90d82c642b3f1103
 }
 ```
 

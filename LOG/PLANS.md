@@ -15,7 +15,8 @@ hope finished them before my undergraduate
 - [x] python learning <font color=red>STOP</font>
 - [ ] cartographer source code
 - [ ] ceres solver
-- [ ] Eigen  <font color=red>DOING</font>
+- [ ] Eigen  <font color=red>STOP</font>
+- [ ] Read tergeo structure
 
 ## BOOK
 
@@ -24,6 +25,7 @@ hope finished them before my undergraduate
 - [ ] fastslam-book
 - [ ] Patter Recognition and Machine Learning
 - [ ] Multivew Geometry
+- [ ] ltxprimier <font color=red>DOING</font>
 
 
 
