@@ -141,3 +141,15 @@ office 全家桶
 ### 03.其他
 
 - 网易云音乐
+
+
+
+### 04.设置
+
+wifi 驱动设置
+
+ `/etc/rc.local` 文件
+
+> echo "123"| sudo modprobe -r ideapad_laptop
+>
+> exit 0
