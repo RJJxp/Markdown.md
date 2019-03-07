@@ -72,6 +72,8 @@ Ubuntu 1604 LTS极易安装, 只进行 [2.配置Raccoon工作环境](#2.配置Ra
 
 成功后, 系统会重启, Ubuntu便成功烧制到x3399开发板 
 
+http://bbs.elecfans.com/jishu_1310611_1_1.html
+
 
 
 ## 2.配置Raccoon工作环境
