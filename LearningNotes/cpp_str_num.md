@@ -22,3 +22,9 @@ string to_string (long double val)
 
 ## 字符串2数字
 
+```c++
+std::string s;
+int i = atoi(s.c_str());
+double d = atof(s.c_str());
+```
+
