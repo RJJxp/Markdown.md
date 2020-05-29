@@ -29,7 +29,27 @@
 ## 04. 必要软件安装
 
 - 搜狗输入法安装与常见问题
+
 - Git及初始化设置
+
 - Typora
+
 - vscode安装及常用设置
+
 - ROS安装
+
+- Nvidia显卡驱动, CUDA, CUDNN
+
+  tensorflow-installation 
+
+  https://www.tensorflow.org/install/source#common_installation_problems
+
+  Ubuntu1804 安装cuda10, cudnn https://blog.csdn.net/qq_32408773/article/details/84112166 
+
+  Ubuntu1804 安装cuda, cudnn https://zhuanlan.zhihu.com/p/72298520
+
+  cudnn-archive https://developer.nvidia.com/rdp/cudnn-archive
+
+  cuda-toolkit-archive https://developer.nvidia.com/cuda-toolkit-archive
+
+- docker, nvidia-docker
