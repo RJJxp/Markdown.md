@@ -37,8 +37,6 @@
   ```bash
   # 查看状态, 相当于win10的任务管理器
   htop
-  # 实时显示
-  htop -l
   # 查看显卡状态
   nvidia-smi 
   # 实时显示
@@ -51,6 +49,12 @@
   cd <dst_dir>
   du -h --max-depth=0
   du -h --max-depth=1
+  ```
+  
+- 查看磁盘空间
+
+  ```bash
+  df -hl
   ```
 
   
