@@ -53,3 +53,6 @@
   cuda-toolkit-archive https://developer.nvidia.com/cuda-toolkit-archive
 
 - docker, nvidia-docker
+
+- pcl https://blog.csdn.net/zyc121561/article/details/80077248
+

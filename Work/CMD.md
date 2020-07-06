@@ -28,6 +28,8 @@
   scp <local_path> <server_name>@<server_ip>:<server_dir> 
   # 复制文件夹, 本地到服务器
   scp -r <local_dir> <server_name>@<server_ip>:<server_dir>
+  # 指定服务器端口
+  scp -P <port_id> <local_path> <server_name>@<server_ip>:<server_dir>
   ```
 
 - 查看显卡和状态
@@ -41,6 +43,14 @@
   nvidia-smi 
   # 实时显示
   nvidia-smi -l
+  ```
+  
+- 文件夹大小
+
+  ```bash
+  cd <dst_dir>
+  du -h --max-depth=0
+  du -h --max-depth=1
   ```
 
   
