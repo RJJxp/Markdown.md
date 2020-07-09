@@ -16,6 +16,8 @@ Recite the knowledge in my WORDS.
 
 - Gazebo9 has installed iginition-transport4 [solution](https://blog.csdn.net/fanky_chan/article/details/100743255) 
 
+- If Gazebo dose not find plugin, no any warning and error. So when you write a plugin, print sth.
+
 
 
 ## 01. Base
@@ -122,7 +124,7 @@ The file organization of the model database and models
 ```mermaid
 graph TD
 A[Gazebo xxx.world] -->  B[In models search paths ]
-B --> C[find model folder tagged by world file]
+B --> C[find model folder tagged by world file TODO]
 C --> D[find model.conf in the folder]
 D --> E[find model.sdf tagged by config file]
 E --> F[load the model in xxx.world]
@@ -358,9 +360,15 @@ A plugin is a chunk of code that is compiled as a shared library and inserted in
 
 6 types: world, model, sensor, system, visual, GUI
 
-Then exercise!!!!
+ [5 Simple exercise ](http://gazebosim.org/tutorials?cat=write_plugin) 
+
+- occupied event
+- contain plugin
+- mechanism of plugin [link](http://gazebosim.org/tutorials?tut=flashlight_plugin&cat=plugins) 
 
 
+
+## 04. ROS and Gazebo
 
 
 
