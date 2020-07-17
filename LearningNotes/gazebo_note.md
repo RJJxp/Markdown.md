@@ -18,6 +18,8 @@ Recite the knowledge in my WORDS.
 
 - If Gazebo dose not find plugin, no any warning and error. So when you write a plugin, print sth.
 
+- convert `.urdf` to `.sdf` , encoutered problem [link](https://answers.gazebosim.org//question/21441/the-minimum-corner-of-the-box-must-be-less-than-or-equal-to-maximum-corner/) 
+
 
 
 ## 01. Base
@@ -369,6 +371,12 @@ A plugin is a chunk of code that is compiled as a shared library and inserted in
 
 
 ## 04. ROS and Gazebo
+
+build washing robot 
+
+https://blog.csdn.net/Travis_X/article/details/104134657
+
+https://blog.csdn.net/weixin_44172961/article/details/93886674
 
 
 
