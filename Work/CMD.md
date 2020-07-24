@@ -57,5 +57,12 @@
   df -hl
   ```
 
+- 代理
+
+  ```bash
+  sudo apt -o Acquire::http::proxy=http://127.0.0.1:8888 update
+  export http_proxy="http://127.0.0.1:8888"
+  ```
+
   
 
