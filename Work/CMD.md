@@ -64,5 +64,10 @@
   export http_proxy="http://127.0.0.1:8888"
   ```
 
-  
+- youtube-dl
 
+  ```bash
+  youtube-dl --proxy 'socks5://127.0.0.1:1089' <url>
+  ```
+
+  
