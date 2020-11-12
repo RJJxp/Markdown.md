@@ -71,7 +71,7 @@ docker-compose --version
 
 在 `tergeo-release-hub` 中的制品库 `deb` 中
 
-下载最新 `tergeo.deb` 和 `tergeo-base.deb` 并安装
+下载最新 `tergeo.deb` 并安装
 
 同时, 为了之后的镜像管理, 将旧镜像全部删除
 
