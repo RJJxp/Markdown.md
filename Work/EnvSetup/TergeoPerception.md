@@ -1,4 +1,4 @@
-# Tergeo 感知模块环境配置
+# Tergeo 感知模块环境配置与使用
 
 由于本机拥有Nvidia显卡 GTX-1060
 
@@ -137,6 +137,12 @@ sudo apt-get install libsuitesparse-dev
 之后正常编译安装即可
 
 
+
+## 3. Example
+
+- `perception_algorithm/` 中 `./build.sh` 和 `./install.sh` 
+- `perception_plugins/` 中 `./build.sh` 和 `./install.sh` 
+- `config_hub/<car_type>/` 中 `./install.sh`   
 
 
 
