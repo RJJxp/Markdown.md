@@ -1,2 +1,0 @@
-# Tergeo2 Setup
-
