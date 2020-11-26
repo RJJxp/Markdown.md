@@ -275,4 +275,48 @@ SSH设置
 
 文件夹`FolderName/`记住有斜杠
 
-文件`Folder1/Folder2/file`
+文件`Folder1/Folder2/file` 
+
+
+
+## 6 Git Stash
+
+```bash
+# in branch b1
+git stash save "message"
+git checkout master
+fix bug or sth
+git add .
+git commit -m "message"
+git checkout b1
+git stash pop
+```
+
+善用 `git stash list` 和 `git stash pop` , `git stash drop` , `git stash clear` 等命令
+
+```bash
+git stash pop <index>
+git stash drop <index>
+```
+
+
+
+## 7. Git Others
+
+```bash
+# 写代码和推代码之前, 要拉取最新develop并merge
+git checkout master
+git pull origin master
+git checkout <YourBranch>
+git merge master
+
+git checkout develop
+git pull origin develop
+git checkout <YourBranch>
+git merge develop
+
+# 开始写代码
+git checkout -b <YourNewBranch>
+# 推代码
+git push origin <YourBranch>
+```
