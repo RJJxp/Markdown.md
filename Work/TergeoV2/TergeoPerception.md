@@ -67,7 +67,7 @@ docker-compose --version
 
 
 
-## 1. Tergeo 镜像安装
+## 1. Tergeo 环境部署及更新
 
 在 `tergeo-release-hub` 中的制品库 `deb` 中
 
@@ -89,6 +89,26 @@ docker cp <container>:/tergeo <tmp_dir>
 cp -rf <tmp_dir> /tergeo
 # 删除container
 docker rm <container>
+```
+
+注意要将 `calib_data` 覆盖至 `/tergeo/calib_data` 
+
+```bash
+# 更新 ros_msgs
+cd <TergeoDir>/ros_msgs
+git checkout develop
+git pull origin develop
+./build.sh
+./install.sh	# 将 ros_msgs 安装至 ROS 系统路径
+
+# 更新其他工具, 以 tergeo-view 为例
+# calib_pointcloud_tool
+# refline_editor
+# tergeo_app
+cd <TergeoDir>/tergeo-view 
+git checkout develop
+git pull origin develop
+./build.sh
 ```
 
 

@@ -281,6 +281,8 @@ SSH设置
 
 ## 6 Git Stash
 
+git stash 只对 git add 后的文件进行缓存
+
 ```bash
 # in branch b1
 git stash save "message"
